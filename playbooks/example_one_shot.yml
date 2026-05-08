@@ -1,0 +1,13 @@
+---
+- name: Example One-shot AI Chat
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get a quick response from the AI
+      cogni_ai.github_models.ai_inference_chat:
+        prompt: Explain Ansible collections in one sentence.
+        model: deepseek/DeepSeek-R1
+      register: response
+    - name: Display response
+      ansible.builtin.debug:
+        var: response.message

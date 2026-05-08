@@ -4,8 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-from ansible.module_utils.basic import AnsibleModule
-import os
+from ansible.module_utils.basic import AnsibleModule, env_fallback
 
 DOCUMENTATION = r"""
 ---
@@ -94,7 +93,7 @@ def main():
     module = AnsibleModule(
         argument_spec=dict(
             endpoint=dict(type="str", default="https://models.github.ai/inference"),
-            token=dict(type="str", no_log=True, required=False),
+            token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN"])),
             model=dict(type="str", default="deepseek/DeepSeek-R1"),
             prompt=dict(type="str", required=False),
             system_prompt=dict(type="str", required=False),
@@ -130,7 +129,7 @@ def main():
             messages=messages_dict,
         )
 
-    token = module.params["token"] or os.getenv("GITHUB_TOKEN")
+    token = module.params["token"]
     if not token:
         module.fail_json(msg="token is required or set GITHUB_TOKEN")
 

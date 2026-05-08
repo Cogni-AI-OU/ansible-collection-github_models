@@ -1,0 +1,31 @@
+---
+- name: Example Persistent History AI Chat
+  hosts: localhost
+  gather_facts: false
+  vars:
+    chat_history:
+      - role: system
+        content: You are a creative writer.
+  tasks:
+    - name: First turn
+      cogni_ai.github_models.ai_inference_chat:
+        messages: '{{ chat_history }}'
+        prompt: Tell me a joke about robots.
+      register: turn1
+    - name: Update history
+      ansible.builtin.set_fact:
+        chat_history: >-
+          {{
+            chat_history + [
+              {'role': 'user', 'content': 'Tell me a joke about robots.'},
+              {'role': 'assistant', 'content': turn1.message}
+            ]
+          }}
+    - name: Second turn
+      cogni_ai.github_models.ai_inference_chat:
+        messages: '{{ chat_history }}'
+        prompt: Now make it about space.
+      register: turn2
+    - name: Display final response
+      ansible.builtin.debug:
+        var: turn2.message

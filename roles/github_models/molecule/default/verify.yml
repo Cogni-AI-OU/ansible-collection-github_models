@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
     - name: Test ai_inference_chat in check mode with complex messages
-      ai_inference_chat:
+      cogni_ai.github_models.ai_inference_chat:
         system_prompt: You are a helpful assistant
         messages:
           - role: user
@@ -26,7 +26,7 @@
           - result_check.messages[3].content == 'And Germany?'
           - 'result_check.msg == "Check mode: no request sent"'
     - name: Test ai_inference_chat with actual call (expects GITHUB_TOKEN)
-      ai_inference_chat:
+      cogni_ai.github_models.ai_inference_chat:
         prompt: Hello, this is an automated test. Please respond with 'OK'.
         token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
       register: result_call

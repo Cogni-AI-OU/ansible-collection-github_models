@@ -1,0 +1,19 @@
+---
+- name: Test Persistent history simulation
+  cogni_ai.github_models.ai_inference_chat:
+    messages:
+      - role: system
+        content: You are a bot
+      - role: user
+        content: Turn 1
+      - role: assistant
+        content: Response 1
+    prompt: Turn 2
+    model: '{{ ai_model }}'
+  register: result
+  check_mode: true
+- name: Verify result
+  ansible.builtin.assert:
+    that:
+      - result.messages | length == 4
+      - result.messages[3].content == "Turn 2"

@@ -10,6 +10,14 @@
     prompt: "Explain Ansible collections in one sentence."
   register: result
 
+## Example Playbooks
+
+You can find complete example playbooks in the `playbooks/` directory:
+
+- `example_one_shot.yml`: Basic single prompt example.
+- `example_multi_turn.yml`: Multi-turn conversation example.
+- `example_persistent_history.yml`: Demonstrates how to maintain state between tasks.
+
 - name: Show response
   debug:
     msg: "{{ result.message }}"
@@ -29,4 +37,12 @@
       - role: user
         content: "And its population?"
   register: result
+
+## Example Playbooks
+
+You can find complete example playbooks in the `playbooks/` directory:
+
+- `example_one_shot.yml`: Basic single prompt example.
+- `example_multi_turn.yml`: Multi-turn conversation example.
+- `example_persistent_history.yml`: Demonstrates how to maintain state between tasks.
 ```
