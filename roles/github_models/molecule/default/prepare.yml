@@ -23,6 +23,7 @@
       ansible.builtin.pip:
         name: azure-ai-inference
         state: present
+        break_system_packages: true
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
@@ -41,4 +42,5 @@
       ansible.builtin.pip:
         name: azure-ai-inference
         state: present
+        break_system_packages: true
       changed_when: false

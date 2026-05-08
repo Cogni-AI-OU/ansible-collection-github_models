@@ -98,6 +98,7 @@
       ansible.builtin.pip:
         name: azure-ai-inference
         state: present
+        break_system_packages: true
   tags: always
   vars:
     container_image_map:
