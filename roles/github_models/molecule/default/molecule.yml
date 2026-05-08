@@ -42,8 +42,11 @@ provisioner:
       stdout_callback: ansible.builtin.default
       verbosity: 1
   env:
-    ANSIBLE_FORCE_COLOR: '1'
-    ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+    ANSIBLE_FORCE_COLOR: "1"
+    ANSIBLE_LIBRARY: "../../../plugins/modules"
+    ANSIBLE_LOAD_CALLBACK_PLUGINS: "1"
+    ANSIBLE_MODULE_UTILS: "../../../plugins/module_utils"
+    GITHUB_TOKEN: "${GITHUB_TOKEN}"
   inventory:
     group_vars:
       all:

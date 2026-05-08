@@ -1,48 +1,36 @@
-# Ansible Role: GitHub Models
+# Ansible Collection: cogni_ai.github_models
 
 [![PR Reviews][pr-reviews-image]][pr-reviews-link]
 [![License][license-image]][license-link]
 [![Check][check-image]][check-link]
 
-This is a GitHub Models role.
-Use it as starting point to create your own role.
+This collection provides modules and roles for interacting with GitHub AI Inference Models.
 
-## Getting Started
+## Modules
 
-🗺️ **New to this repository?** Take the [**CodeTour**](.tours/getting-started.tour) to explore the project structure!
+- `ai_inference_chat`: Stateless interface for GitHub AI Inference Chat Completions.
 
-To view the tour:
+## Roles
 
-1. Install the [CodeTour extension](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) in VS Code
-2. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
-3. Run "CodeTour: Start Tour"
+- `github_models`: Role for setting up and using GitHub Models.
 
-Or simply open this repository in a devcontainer - the extension is pre-configured!
+## Installation
 
-## Requirements
-
-This role requires:
-
-- Ansible
-- Python
-- Administrative/root access on target hosts
-- One of the following operating systems:
-  - Alpine Linux
-  - Debian/Ubuntu
-  - NixOS or systems with Nix package manager
-
-## Install
-
-To install this role, you can use the following terminal command:
+To install this collection:
 
 ```shell
-ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-collection-github_models.git
+ansible-galaxy collection install git+https://github.com/Cogni-AI-OU/ansible-collection-github_models.git
 ```
 
-## Role Variables
+## Usage
 
-For available variables,
-check [`defaults/main.yml`](defaults/main.yml).
+### Using the module
+
+```yaml
+- name: Ask a question
+  cogni_ai.github_models.ai_inference_chat:
+    prompt: "What is Ansible?"
+```
 
 ## Testing
 

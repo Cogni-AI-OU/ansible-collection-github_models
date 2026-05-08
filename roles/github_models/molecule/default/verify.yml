@@ -1,0 +1,42 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Test ai_inference_chat in check mode with complex messages
+      ai_inference_chat:
+        system_prompt: "You are a helpful assistant"
+        messages:
+          - role: user
+            content: "What is the capital of France?"
+          - role: assistant
+            content: "The capital of France is Paris."
+        prompt: "And Germany?"
+      check_mode: true
+      register: result_check
+
+    - name: Verify check mode result structure and order
+      ansible.builtin.assert:
+        that:
+          - "result_check.messages | length == 4"
+          - "result_check.messages[0].role == 'system'"
+          - "result_check.messages[0].content == 'You are a helpful assistant'"
+          - "result_check.messages[1].content == 'What is the capital of France?'"
+          - "result_check.messages[2].role == 'assistant'"
+          - "result_check.messages[3].role == 'user'"
+          - "result_check.messages[3].content == 'And Germany?'"
+          - 'result_check.msg == "Check mode: no request sent"'
+
+    - name: Test ai_inference_chat with actual call (expects GITHUB_TOKEN)
+      ai_inference_chat:
+        prompt: "Hello, this is an automated test. Please respond with 'OK'."
+        token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+      register: result_call
+      ignore_errors: true
+
+    - name: Verify call response (if token was provided)
+      ansible.builtin.assert:
+        that:
+          - "result_call.message is defined"
+          - "result_call.message | length > 0"
+      when: lookup('env', 'GITHUB_TOKEN') | length > 0

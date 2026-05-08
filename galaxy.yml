@@ -1,0 +1,38 @@
+#SPDX-License-Identifier: MIT-0
+### REQUIRED
+# The namespace of the collection. This can be a company/brand/organization or product namespace under which all
+# content lives. May only contain alphanumeric lowercase characters and underscores. Namespaces cannot start with
+# underscores or numbers and cannot contain consecutive underscores
+namespace: cogni_ai
+name: github_models
+version: 1.0.0
+readme: README.md
+authors:
+- Cogni AI <info@cogni.ai>
+description: Ansible collection for GitHub AI Inference Models
+license:
+- MIT
+tags:
+- ai
+- github
+- deepseek
+- llm
+repository: https://github.com/Cogni-AI-OU/ansible-collection-github_models
+documentation: https://github.com/Cogni-AI-OU/ansible-collection-github_models/tree/main/docs
+homepage: https://github.com/Cogni-AI-OU/ansible-collection-github_models
+issues: https://github.com/Cogni-AI-OU/ansible-collection-github_models/issues
+
+
+# A list of file glob-like patterns used to filter any files or directories that should not be included in the build
+# artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This
+# uses 'fnmatch' to match the files or directories. Some directories and files like 'galaxy.yml', '*.pyc', '*.retry',
+# and '.git' are always filtered. Mutually exclusive with 'manifest'
+build_ignore: []
+
+# A dict controlling use of manifest directives used in building the collection artifact. The key 'directives' is a
+# list of MANIFEST.in style
+# L(directives,https://packaging.python.org/en/latest/guides/using-manifest-in/#manifest-in-commands). The key
+# 'omit_default_directives' is a boolean that controls whether the default directives are used. Mutually exclusive
+# with 'build_ignore'
+# manifest: null
+
