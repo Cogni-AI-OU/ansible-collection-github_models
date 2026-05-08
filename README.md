@@ -1,10 +1,10 @@
-# Ansible Role: Template
+# Ansible Role: GitHub Models
 
 [![PR Reviews][pr-reviews-image]][pr-reviews-link]
 [![License][license-image]][license-link]
 [![Check][check-image]][check-link]
 
-This is a template role.
+This is a GitHub Models role.
 Use it as starting point to create your own role.
 
 ## Getting Started
@@ -36,7 +36,7 @@ This role requires:
 To install this role, you can use the following terminal command:
 
 ```shell
-ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-role-template.git
+ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-collection-github_models.git
 ```
 
 ## Role Variables
@@ -61,7 +61,7 @@ Steps to test role on Docker containers.
     Alternatively, for development purposes, you can consider using symbolic link, e.g.
 
     ```shell
-    ln -vs "$PWD" ~/.ansible/roles/cogni-ai.template
+    ln -vs "$PWD" ~/.ansible/roles/cogni-ai.github_models
     ```
 
 2. Ensure Docker service (e.g. Docker Desktop) is running.
@@ -146,9 +146,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <!-- Named links -->
 
-[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/ansible-role-template?label=PR+Reviews&logo=github
-[pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-role-template/pulls
+[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/ansible-collection-github_models?label=PR+Reviews&logo=github
+[pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-collection-github_models/pulls
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-link]: LICENSE
-[check-image]: https://github.com/Cogni-AI-OU/ansible-role-template/actions/workflows/check.yml/badge.svg
-[check-link]: https://github.com/Cogni-AI-OU/ansible-role-template/actions/workflows/check.yml
+[check-image]: https://github.com/Cogni-AI-OU/ansible-collection-github_models/actions/workflows/check.yml/badge.svg
+[check-link]: https://github.com/Cogni-AI-OU/ansible-collection-github_models/actions/workflows/check.yml

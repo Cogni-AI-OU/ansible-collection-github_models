@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Ansible role template repository. It provides standardized structure,
-GitHub Actions workflows, issue/PR templates, and coding standards for creating
+This is an Ansible role github_models repository. It provides standardized structure,
+GitHub Actions workflows, issue/PR github_modelss, and coding standards for creating
 reusable Ansible roles.
 
 Key contents:
 
-- **Ansible role structure**: Standard role directories (tasks, handlers, templates, defaults, vars, meta)
+- **Ansible role structure**: Standard role directories (tasks, handlers, github_modelss, defaults, vars, meta)
 - **CI/CD workflows**: Pre-commit checks, linting, Molecule testing
 - **Agent configurations**: `AGENTS.md` and workflow metadata for AI coding assistants
 
@@ -101,7 +101,7 @@ runtime and as the source of required controller-side dependencies.
 .
 ├── .github/
 │   ├── FIREWALL.md          # Firewall allowlist guidance for hosted agents
-│   ├── prompts/             # Prompt templates for editors and models
+│   ├── prompts/             # Prompt github_modelss for editors and models
 │   ├── workflows/           # GitHub Actions workflows
 │   └── copilot-instructions.md
 ├── .tours/                  # VS Code guided tours
@@ -110,7 +110,7 @@ runtime and as the source of required controller-side dependencies.
 ├── meta/                    # Role metadata and dependencies
 ├── molecule/                # Molecule test scenarios
 ├── tasks/                   # Main role tasks
-├── templates/               # Jinja2 templates
+├── github_modelss/               # Jinja2 github_modelss
 ├── vars/                    # Role variables
 ├── AGENTS.md                # AI agent guidance
 └── README.md                # Repository documentation
