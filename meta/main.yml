@@ -11,7 +11,7 @@ galaxy_info:
     - docker
     - linux
     - ubuntu
-  issue_tracker_url: https://github.com/Cogni-AI-OU/ansible-role-github_models/issues
+  issue_tracker_url: https://github.com/Cogni-AI-OU/ansible-collection-github_models/issues
   license: MIT
   min_ansible_version: '2.7'
   namespace: cogni-ai

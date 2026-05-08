@@ -36,7 +36,7 @@ This role requires:
 To install this role, you can use the following terminal command:
 
 ```shell
-ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-role-github_models.git
+ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-collection-github_models.git
 ```
 
 ## Role Variables
@@ -146,9 +146,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <!-- Named links -->
 
-[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/ansible-role-github_models?label=PR+Reviews&logo=github
-[pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-role-github_models/pulls
+[pr-reviews-image]: https://img.shields.io/github/issues-pr/Cogni-AI-OU/ansible-collection-github_models?label=PR+Reviews&logo=github
+[pr-reviews-link]: https://github.com/Cogni-AI-OU/ansible-collection-github_models/pulls
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-link]: LICENSE
-[check-image]: https://github.com/Cogni-AI-OU/ansible-role-github_models/actions/workflows/check.yml/badge.svg
-[check-link]: https://github.com/Cogni-AI-OU/ansible-role-github_models/actions/workflows/check.yml
+[check-image]: https://github.com/Cogni-AI-OU/ansible-collection-github_models/actions/workflows/check.yml/badge.svg
+[check-link]: https://github.com/Cogni-AI-OU/ansible-collection-github_models/actions/workflows/check.yml
