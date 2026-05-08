@@ -8,9 +8,9 @@
         if command -v python3 || command -v python; then
           exit 0
         elif command -v apk; then
-          apk add --no-cache python3 py3-pip
+          apk add --no-cache python3 py3-pip py3-packaging
         elif command -v apt; then
-          apt -y update && apt install -y python3-minimal
+          apt -y update && apt install -y python3-minimal python3-pip python3-packaging
         elif command -v dnf; then
           dnf install -y python3
         elif command -v zypper; then

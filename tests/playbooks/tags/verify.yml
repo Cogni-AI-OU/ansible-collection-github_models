@@ -77,7 +77,7 @@
       changed_when: false
       when: container_image is search('alpine')
     - name: Install Python 3 on Alpine
-      ansible.builtin.raw: apk update && apk add --no-cache python3 py3-pip
+      ansible.builtin.raw: apk update && apk add --no-cache python3 py3-pip py3-packaging
       changed_when: true
       when:
         - container_image is search('alpine')
@@ -89,7 +89,7 @@
       changed_when: false
       when: container_image is search('ubuntu') or container_image is search('debian')
     - name: Install Python 3 on Ubuntu/Debian
-      ansible.builtin.raw: apt-get update && apt-get install -y python3 python3-pip
+      ansible.builtin.raw: apt-get update && apt-get install -y python3 python3-pip python3-packaging
       changed_when: true
       when:
         - container_image is search('ubuntu') or container_image is search('debian')

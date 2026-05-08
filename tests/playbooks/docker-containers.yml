@@ -73,7 +73,7 @@
         ansible_python_interpreter: '{{ controller_python }}'
     - name: Install Python 3 on Alpine
       ansible.builtin.raw: |
-        test -e "{{ ansible_python_interpreter }}" || (apk update && apk add --no-cache python3 py3-pip)
+        test -e "{{ ansible_python_interpreter }}" || (apk update && apk add --no-cache python3 py3-pip py3-packaging)
       changed_when: false
       when: container_image is search("alpine")
     - name: Install Python 3 on Ubuntu/Debian
@@ -89,6 +89,7 @@
           - python3
           - python3-pip
           - python3-setuptools
+          - python3-packaging
         state: present
         update_cache: true
       when: container_image is search("ubuntu") or container_image is search("debian")
