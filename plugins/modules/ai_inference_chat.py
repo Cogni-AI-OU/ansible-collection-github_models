@@ -46,6 +46,12 @@ options:
     temperature:
         description: The temperature for generation.
         type: float
+    tracing:
+        description:
+            - Whether to enable tracing using OpenTelemetry.
+            - Requires C(opentelemetry-sdk) and C(azure-ai-inference) tracing support.
+        type: bool
+        default: false
 required_one_of:
     - ["prompt", "messages"]
 author:
@@ -80,13 +86,14 @@ try:
     from ansible_collections.cogni_ai.github_models.plugins.module_utils.ai_inference_common import (
         create_client,
         build_messages,
+        setup_tracing,
     )
 except ImportError:
     # Fallback for local testing
     try:
-        from plugins.module_utils.ai_inference_common import create_client, build_messages
+        from plugins.module_utils.ai_inference_common import create_client, build_messages, setup_tracing
     except ImportError:
-        from ai_inference_common import create_client, build_messages
+        from ai_inference_common import create_client, build_messages, setup_tracing
 
 
 def main():
@@ -108,6 +115,7 @@ def main():
             ),
             max_tokens=dict(type="int", required=False),
             temperature=dict(type="float", required=False),
+            tracing=dict(type="bool", default=False),
         ),
         required_one_of=[["prompt", "messages"]],
         supports_check_mode=True,
@@ -133,6 +141,12 @@ def main():
     if not token:
         module.fail_json(msg="token is required or set GITHUB_TOKEN")
 
+    instrumentor = None
+    if module.params["tracing"]:
+        instrumentor = setup_tracing()
+        if not instrumentor:
+            module.warn("Tracing enabled but dependencies (opentelemetry, etc.) are missing. Proceeding without tracing.")
+
     try:
         client = create_client(module.params["endpoint"], token)
         # Use common utility to build SDK message objects
@@ -155,6 +169,9 @@ def main():
 
         response = client.complete(**kwargs)
 
+        if instrumentor:
+            instrumentor.uninstrument()
+
         module.exit_json(
             changed=False,
             message=response.choices[0].message.content,
@@ -162,6 +179,8 @@ def main():
             messages=messages_dict,
         )
     except Exception as exc:
+        if instrumentor:
+            instrumentor.uninstrument()
         module.fail_json(msg=str(exc))
 
 
