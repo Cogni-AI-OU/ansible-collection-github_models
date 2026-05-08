@@ -97,9 +97,9 @@
     controller_python: '{{ ansible_playbook_python }}'
     nixos_built_image: cogni-ai-github_models-nixos:latest
     nixos_dockerfile_output: >-
-      {{ playbook_dir }}/../../molecule/resources/playbooks/Dockerfile.github_models-on-nixos
+      {{ playbook_dir }}/../../roles/github_models/molecule/resources/playbooks/Dockerfile.github_models-on-nixos
     nixos_dockerfile_template: >-
-      {{ playbook_dir }}/../../molecule/resources/playbooks/Dockerfile.j2
+      {{ playbook_dir }}/../../roles/github_models/molecule/resources/playbooks/Dockerfile.j2
     container_image_map:
       github_models-on-alpine-latest: alpine:latest
       github_models-on-debian-latest: debian:latest
@@ -117,7 +117,7 @@
   tasks:
     - name: Installs cogni-ai.github_models role
       ansible.builtin.import_role:
-        name: cogni-ai.github_models
+        name: cogni_ai.github_models.github_models
   post_tasks:
     - name: Stop Docker containers
       community.docker.docker_container:

@@ -2,7 +2,6 @@
 - name: Verify installation
   ansible.builtin.include_tasks: verify.yml
   tags: github_models-verify
-
 - name: Include NixOS tasks
   ansible.builtin.include_tasks: NixOS.yml
   when: ansible_facts['os_family'] == 'NixOS'

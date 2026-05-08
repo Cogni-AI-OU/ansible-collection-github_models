@@ -1,9 +1,13 @@
 #!/usr/bin/python
 
-from __future__ import (absolute_import, division, print_print)
+from __future__ import absolute_import, division, print_function
+
 __metaclass__ = type
 
-DOCUMENTATION = r'''
+from ansible.module_utils.basic import AnsibleModule
+import os
+
+DOCUMENTATION = r"""
 ---
 module: ai_inference_chat
 short_description: stateless interface for GitHub AI Inference Chat Completions
@@ -47,9 +51,9 @@ required_one_of:
     - ["prompt", "messages"]
 author:
     - Cogni AI
-'''
+"""
 
-EXAMPLES = r'''
+EXAMPLES = r"""
 - name: One-shot prompt
   ai_inference_chat:
     prompt: "Hello, how are you?"
@@ -62,22 +66,22 @@ EXAMPLES = r'''
         content: "You are a helpful assistant."
       - role: user
         content: "What is Ansible?"
-'''
+"""
 
-RETURN = r'''
+RETURN = r"""
 message:
     description: The generated message content.
     returned: success
     type: str
     sample: "Ansible is an open-source automation tool."
-'''
-
-from ansible.module_utils.basic import AnsibleModule
-import os
+"""
 
 # The import path for collection
 try:
-    from ansible_collections.cogni_ai.github_models.plugins.module_utils.ai_inference_common import create_client, build_messages
+    from ansible_collections.cogni_ai.github_models.plugins.module_utils.ai_inference_common import (
+        create_client,
+        build_messages,
+    )
 except ImportError:
     # Fallback for local testing
     try:

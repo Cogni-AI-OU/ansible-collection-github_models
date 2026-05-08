@@ -112,7 +112,7 @@
   tasks:
     - name: Import cogni-ai.github_models role
       ansible.builtin.import_role:
-        name: cogni-ai.github_models
+        name: cogni_ai.github_models.github_models
   tags: verify
   post_tasks:
     - name: Stop Docker containers
