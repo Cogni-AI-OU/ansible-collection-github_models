@@ -37,7 +37,7 @@
         printf "sandbox = false\n" > /etc/nix/nix.conf
         export NIX_CONFIG="sandbox = false"
         nix-env --option sandbox false \
-          -iA nixpkgs.python3 nixpkgs.python3Packages.pip
+          -iA nixpkgs.python3 nixpkgs.python3Packages.pip nixpkgs.python3Packages.packaging
     - name: Install azure-ai-inference on NixOS
       ansible.builtin.pip:
         name: azure-ai-inference
