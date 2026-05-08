@@ -36,20 +36,20 @@ ansible-galaxy collection install git+https://github.com/Cogni-AI-OU/ansible-col
 
 ### Docker
 
-Steps to test role on Docker containers.
+Steps to test collection on Docker containers.
 
-1. Install the current role by running the following commands in shell:
+1. Install the current collection by running the following commands in shell:
 
     ```shell
-    ansible-galaxy install -r requirements.yml
+    ansible-galaxy collection install -r requirements.yml
     jinja2 requirements-local.yml.j2 -D "pwd=$PWD" -o requirements-local.yml
-    ansible-galaxy install -r requirements-local.yml
+    ansible-galaxy collection install -r requirements-local.yml
     ```
 
     Alternatively, for development purposes, you can consider using symbolic link, e.g.
 
     ```shell
-    ln -vs "$PWD" ~/.ansible/roles/cogni-ai.github_models
+    ln -vs "$PWD" ~/.ansible/collections/ansible_collections/cogni_ai/github_models
     ```
 
 2. Ensure Docker service (e.g. Docker Desktop) is running.
