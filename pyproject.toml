@@ -1,13 +1,13 @@
-# Example pyproject template; update name, description, author info, and metadata for your project.
+# Example pyproject for GitHub Models; update name, description, author info, and metadata for your project.
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ansible-ops-template"
+name = "ansible-ops-github_models"
 version = "0.1.0"
-description = "Template for Example ops utilities that interact with external APIs."
+description = "Template for Example ops utilities that interact with GitHub Models."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
@@ -22,5 +22,5 @@ authors = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Cogni-AI-OU/ansible-ops-template"
-Repository = "https://github.com/Cogni-AI-OU/ansible-ops-template"
+Homepage = "https://github.com/Cogni-AI-OU/ansible-ops-github_models"
+Repository = "https://github.com/Cogni-AI-OU/ansible-ops-github_models"

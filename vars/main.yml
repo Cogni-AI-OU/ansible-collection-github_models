@@ -1,9 +1,9 @@
 ---
 # Vars file for ansible role.
 # Note: Keep YAML keys sorted alphabetically.
-# 'template_become_method' is expected to be a dictionary keyed by OS family (e.g., 'Debian', 'RedHat'),
-# where each key maps to the appropriate become method (e.g., 'sudo', 'su') for that OS family.
-template_become_method:
+# 'github_models_become_method' is expected to be a dictionary keyed by OS family (e.g., 'Debian', 'RedHat'),
+# while the default 'null' lets Ansible's default behavior apply.
+github_models_become_method:
   _default: ansible.builtin.sudo
   Alpine: ansible.builtin.su
   Darwin: ansible.builtin.sudo

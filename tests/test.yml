@@ -1,6 +1,5 @@
 ---
-- name: Run template role
-  hosts: localhost
-  remote_user: root
+- name: Run github_models role
+  hosts: all
   roles:
-    - cogni-ai.template
+    - cogni-ai.github_models
