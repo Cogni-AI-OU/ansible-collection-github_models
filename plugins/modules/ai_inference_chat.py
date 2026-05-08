@@ -43,9 +43,15 @@ options:
     max_tokens:
         description: The maximum number of tokens to generate.
         type: int
+        default: 10000
     temperature:
         description: The temperature for generation.
         type: float
+        default: 1.0
+    top_p:
+        description: The top-p for generation.
+        type: float
+        default: 1.0
     tracing:
         description:
             - Whether to enable tracing using OpenTelemetry.
@@ -113,8 +119,9 @@ def main():
                     content=dict(type="str", required=True),
                 ),
             ),
-            max_tokens=dict(type="int", required=False),
-            temperature=dict(type="float", required=False),
+            max_tokens=dict(type="int", default=10000),
+            temperature=dict(type="float", default=1.0),
+            top_p=dict(type="float", default=1.0),
             tracing=dict(type="bool", default=False),
         ),
         required_one_of=[["prompt", "messages"]],
@@ -166,6 +173,9 @@ def main():
 
         if module.params["temperature"] is not None:
             kwargs["temperature"] = module.params["temperature"]
+
+        if module.params["top_p"] is not None:
+            kwargs["top_p"] = module.params["top_p"]
 
         response = client.complete(**kwargs)
 
