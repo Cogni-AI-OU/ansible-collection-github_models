@@ -73,12 +73,12 @@
         ansible_python_interpreter: '{{ controller_python }}'
     - name: Install Python 3 on Alpine
       ansible.builtin.raw: |
-        test -e "{{ ansible_python_interpreter }}" || (apk update && apk add --no-cache python3 py3-pip py3-packaging)
+        apk update && apk add --no-cache python3 py3-pip py3-packaging
       changed_when: false
       when: container_image is search("alpine")
     - name: Install Python 3 on Ubuntu/Debian
       ansible.builtin.raw: |
-        test -e "{{ ansible_python_interpreter }}" || (apt-get update && apt-get install -y python3 python3-pip)
+        apt-get update && apt-get install -y python3 python3-pip python3-packaging
       changed_when: false
       when: container_image is search("ubuntu") or container_image is search("debian")
     - name: Gather facts
