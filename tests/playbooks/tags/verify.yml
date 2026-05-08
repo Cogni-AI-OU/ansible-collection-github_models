@@ -94,6 +94,10 @@
       when:
         - container_image is search('ubuntu') or container_image is search('debian')
         - python_exists_debian.rc != 0
+    - name: Install azure-ai-inference on all containers
+      ansible.builtin.pip:
+        name: azure-ai-inference
+        state: present
   tags: always
   vars:
     container_image_map:

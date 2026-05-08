@@ -19,7 +19,10 @@
           echo "No supported package manager found" >&2
           exit 1
         fi
-      changed_when: false
+    - name: Install azure-ai-inference
+      ansible.builtin.pip:
+        name: azure-ai-inference
+        state: present
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
@@ -34,4 +37,8 @@
         export NIX_CONFIG="sandbox = false"
         nix-env --option sandbox false \
           -iA nixpkgs.python3 nixpkgs.python3Packages.pip
+    - name: Install azure-ai-inference on NixOS
+      ansible.builtin.pip:
+        name: azure-ai-inference
+        state: present
       changed_when: false

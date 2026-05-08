@@ -92,6 +92,10 @@
         state: present
         update_cache: true
       when: container_image is search("ubuntu") or container_image is search("debian")
+    - name: Install azure-ai-inference on all containers
+      ansible.builtin.pip:
+        name: azure-ai-inference
+        state: present
   tags: always
   vars:
     controller_python: '{{ ansible_playbook_python }}'
