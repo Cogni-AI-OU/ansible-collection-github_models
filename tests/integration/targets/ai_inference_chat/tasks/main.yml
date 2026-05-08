@@ -1,0 +1,7 @@
+---
+- name: Run one-shot tests
+  ansible.builtin.include_tasks: one_shot.yml
+- name: Run multi-turn tests
+  ansible.builtin.include_tasks: multi_turn.yml
+- name: Run persistent history tests
+  ansible.builtin.include_tasks: persistent_history.yml

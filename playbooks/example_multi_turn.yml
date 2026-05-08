@@ -1,0 +1,20 @@
+---
+- name: Example Multi-turn AI Chat
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Multi-turn conversation with AI
+      cogni_ai.github_models.ai_inference_chat:
+        messages:
+          - role: system
+            content: You are a helpful assistant specialized in Ansible.
+          - role: user
+            content: What is a module?
+          - role: assistant
+            content: A module is a small program that performs a specific task.
+          - role: user
+            content: Give me an example.
+      register: response
+    - name: Display response
+      ansible.builtin.debug:
+        var: response.message

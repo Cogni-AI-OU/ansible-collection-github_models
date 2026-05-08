@@ -7,8 +7,7 @@ dependency:
   options:
     ignore-certs: false
     ignore-errors: false
-    role-file: requirements.yml
-    requirements-file: requirements.yml
+    requirements-file: ../../../../requirements.yml
 driver:
   name: docker
 lint: |
@@ -43,7 +42,10 @@ provisioner:
       verbosity: 1
   env:
     ANSIBLE_FORCE_COLOR: '1'
+    ANSIBLE_LIBRARY: ../../../../plugins/modules
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+    ANSIBLE_MODULE_UTILS: ../../../../plugins/module_utils
+    GITHUB_TOKEN: ${GITHUB_TOKEN}
   inventory:
     group_vars:
       all:

@@ -2,4 +2,4 @@
 - name: Run github_models role
   hosts: all
   roles:
-    - cogni-ai.github_models
+    - cogni_ai.github_models.github_models

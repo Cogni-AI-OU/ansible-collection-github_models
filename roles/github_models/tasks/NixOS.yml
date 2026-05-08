@@ -2,5 +2,5 @@
 - name: Check if Nix store exists
   ansible.builtin.stat:
     path: /nix/store
-  register: nix_store_stat
+  register: github_models_nix_store_stat
   tags: github_models-setup

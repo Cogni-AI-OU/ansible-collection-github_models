@@ -60,8 +60,8 @@ This converts the symlinks from absolute to relative paths:
 
 ### Affected Components
 
-- [molecule/resources/playbooks/Dockerfile.j2](molecule/resources/playbooks/Dockerfile.j2) -
-  Molecule NixOS image template
+- [roles/github_models/molecule/resources/playbooks/Dockerfile.j2](roles/github_models/molecule/resources/playbooks/Dockerfile.j2)
+  - Molecule NixOS image template
 - [tests/playbooks/docker-containers.yml](tests/playbooks/docker-containers.yml) -
   Docker test playbook (uses pre-built image)
 

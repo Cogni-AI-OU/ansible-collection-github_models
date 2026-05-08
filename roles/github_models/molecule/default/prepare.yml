@@ -5,21 +5,24 @@
   tasks:
     - name: Install Python for Ansible
       ansible.builtin.raw: |
-        if command -v python3 || command -v python; then
-          exit 0
-        elif command -v apk; then
-          apk add --no-cache python3 py3-pip
-        elif command -v apt; then
-          apt -y update && apt install -y python3-minimal
+        if command -v apk; then
+          apk update && apk add --no-cache python3 py3-pip py3-packaging
+        elif command -v apt-get; then
+          apt-get update && apt-get install -y python3 python3-pip python3-packaging
         elif command -v dnf; then
-          dnf install -y python3
+          dnf install -y python3 python3-pip python3-packaging
         elif command -v zypper; then
-          zypper --non-interactive install python3
+          zypper --non-interactive install python3 python3-pip python3-packaging
         else
           echo "No supported package manager found" >&2
           exit 1
         fi
       changed_when: false
+    - name: Install azure-ai-inference
+      ansible.builtin.pip:
+        name: azure-ai-inference
+        state: present
+        break_system_packages: true
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
@@ -34,4 +37,11 @@
         export NIX_CONFIG="sandbox = false"
         nix-env --option sandbox false \
           -iA nixpkgs.python3 nixpkgs.python3Packages.pip
+        /root/.nix-profile/bin/pip install --break-system-packages packaging
+      changed_when: false
+    - name: Install azure-ai-inference on NixOS
+      ansible.builtin.pip:
+        name: azure-ai-inference
+        state: present
+        break_system_packages: true
       changed_when: false

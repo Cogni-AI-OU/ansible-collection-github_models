@@ -27,16 +27,21 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Cache pip
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles(format('{0}/.devcontainer/requirements.txt', github.repository), format('{0}/Pipfile*', github.repository)) }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install Python's requirements
         run: pip install -r .devcontainer/requirements.txt
         working-directory: ${{ github.repository }}
       - name: Install Ansible Galaxy requirements
-        run: ansible-galaxy install -r requirements.yml
+        run: ansible-galaxy collection install -r requirements.yml
         working-directory: ${{ github.repository }}
       - name: Install Ansible Galaxy local requirements
-        run: |
-          jinja2 requirements-local.yml.j2 -D "pwd=$PWD" -o requirements-local.yml
-          ansible-galaxy install -r requirements-local.yml && rm requirements-local.yml
+        run: ansible-galaxy collection install .
         working-directory: ${{ github.repository }}
       - name: Check Ansible syntax
         run: >-
@@ -48,10 +53,14 @@ jobs:
         run: ansible-lint tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook with verify tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/tags/verify.yml
         working-directory: ${{ github.repository }}

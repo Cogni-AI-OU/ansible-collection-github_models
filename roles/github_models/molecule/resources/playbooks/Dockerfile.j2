@@ -13,6 +13,7 @@ RUN ln --symbolic --force \
 # Install required packages for Ansible to work on NixOS.
 # Include pip to avoid nix-env inside the running container.
 RUN nix-channel --update && \
-    nix-env -iA nixpkgs.procps nixpkgs.python3 nixpkgs.python3Packages.pip
+    nix-env -iA nixpkgs.procps nixpkgs.python3 nixpkgs.python3Packages.pip && \
+    /root/.nix-profile/bin/pip install --break-system-packages packaging azure-ai-inference
 
 {% endif %}

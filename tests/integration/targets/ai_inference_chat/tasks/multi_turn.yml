@@ -1,0 +1,16 @@
+---
+- name: Test Multi-turn conversation
+  cogni_ai.github_models.ai_inference_chat:
+    messages:
+      - role: system
+        content: You are a bot
+      - role: user
+        content: Hi
+    model: '{{ ai_model }}'
+  register: result
+  check_mode: true
+- name: Verify result
+  ansible.builtin.assert:
+    that:
+      - result.messages[0].role == "system"
+      - result.messages[1].role == "user"

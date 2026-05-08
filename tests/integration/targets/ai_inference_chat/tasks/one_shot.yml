@@ -1,0 +1,12 @@
+---
+- name: Test One-shot prompt
+  cogni_ai.github_models.ai_inference_chat:
+    prompt: Hello
+    model: '{{ ai_model }}'
+  register: result
+  check_mode: true
+- name: Verify result
+  ansible.builtin.assert:
+    that:
+      - result.msg == "Check mode: no request sent"
+      - result.messages[0].content == "Hello"
