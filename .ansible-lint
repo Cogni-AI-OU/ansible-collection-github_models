@@ -25,9 +25,5 @@ warn_list:
   - experimental
   - role-name
 # Mock modules and roles to avoid collection dependencies during lint
-mock_modules:
-  - community.docker.docker_container
-  - community.docker.docker_container_info
-  - community.docker.docker_image
-  - community.general.apk
+mock_modules: []
 mock_roles: []
