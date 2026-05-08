@@ -17,7 +17,7 @@ def test_ai_inference_chat_check_mode(mock_module_class):
         "prompt": "test-prompt",
         "system_prompt": None,
         "messages": None,
-        "max_tokens": 100,
+        "max_tokens": 10000,
         "temperature": 1.0,
         "top_p": 1.0,
     }

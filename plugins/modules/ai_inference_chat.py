@@ -43,7 +43,7 @@ options:
     max_tokens:
         description: The maximum number of tokens to generate.
         type: int
-        default: 100
+        default: 10000
     temperature:
         description: The temperature for generation.
         type: float
@@ -112,7 +112,7 @@ def main():
                     content=dict(type="str", required=True),
                 ),
             ),
-            max_tokens=dict(type="int", default=100),
+            max_tokens=dict(type="int", default=10000),
             temperature=dict(type="float", default=1.0),
             top_p=dict(type="float", default=1.0),
         ),
