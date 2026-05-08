@@ -46,10 +46,14 @@ jobs:
         run: ansible-lint tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook with verify tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/tags/verify.yml
         working-directory: ${{ github.repository }}
