@@ -32,7 +32,7 @@ def test_ai_inference_chat_with_tracing(mock_setup_tracing, mock_create_client, 
 
     mock_client = MagicMock()
     mock_create_client.return_value = mock_client
-    
+
     mock_response = MagicMock()
     mock_response.choices = [MagicMock()]
     mock_response.choices[0].message.content = "test-response"

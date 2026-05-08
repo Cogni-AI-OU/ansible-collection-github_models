@@ -152,7 +152,9 @@ def main():
     if module.params["tracing"]:
         instrumentor = setup_tracing()
         if not instrumentor:
-            module.warn("Tracing enabled but dependencies (opentelemetry, etc.) are missing. Proceeding without tracing.")
+            module.warn(
+                "Tracing enabled but dependencies (opentelemetry, etc.) are missing. Proceeding without tracing."
+            )
 
     try:
         client = create_client(module.params["endpoint"], token)
