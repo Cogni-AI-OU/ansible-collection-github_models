@@ -3,6 +3,13 @@
   hosts: all
   gather_facts: false
   tasks:
+    - name: Run unit tests
+      ansible.builtin.command: pytest tests/unit
+      delegate_to: localhost
+      run_once: true
+      changed_when: false
+      args:
+        chdir: "{{ playbook_dir }}/../../../../"
     - name: Test ai_inference_chat in check mode with complex messages
       ai_inference_chat:
         system_prompt: You are a helpful assistant
@@ -36,10 +43,3 @@
           - github_models_result_call.message is defined
           - github_models_result_call.message | length > 0
       when: lookup('env', 'GITHUB_TOKEN') | length > 0
-    - name: Run unit tests
-      ansible.builtin.command: pytest tests/unit
-      delegate_to: localhost
-      run_once: true
-      changed_when: false
-      args:
-        chdir: "../../../../"
