@@ -27,6 +27,13 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Cache pip
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles(format('{0}/.devcontainer/requirements.txt', github.repository), format('{0}/Pipfile*', github.repository)) }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install Python's requirements
         run: pip install -r .devcontainer/requirements.txt
         working-directory: ${{ github.repository }}
