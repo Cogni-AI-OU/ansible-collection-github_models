@@ -5,18 +5,10 @@
 ### Basic Prompt
 
 ```yaml
-- name: Ask DeepSeek a question
+- name: Ask Grok a question
   cogni_ai.github_models.ai_inference_chat:
     prompt: "Explain Ansible collections in one sentence."
   register: result
-
-## Example Playbooks
-
-You can find complete example playbooks in the `playbooks/` directory:
-
-- `example_one_shot.yml`: Basic single prompt example.
-- `example_multi_turn.yml`: Multi-turn conversation example.
-- `example_persistent_history.yml`: Demonstrates how to maintain state between tasks.
 
 - name: Show response
   debug:
@@ -37,6 +29,7 @@ You can find complete example playbooks in the `playbooks/` directory:
       - role: user
         content: "And its population?"
   register: result
+```
 
 ## Example Playbooks
 
@@ -45,4 +38,3 @@ You can find complete example playbooks in the `playbooks/` directory:
 - `example_one_shot.yml`: Basic single prompt example.
 - `example_multi_turn.yml`: Multi-turn conversation example.
 - `example_persistent_history.yml`: Demonstrates how to maintain state between tasks.
-```

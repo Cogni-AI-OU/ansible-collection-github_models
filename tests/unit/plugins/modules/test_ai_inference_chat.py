@@ -21,6 +21,7 @@ def test_ai_inference_chat_check_mode(mock_module_class):
         "temperature": None,
     }
     mock_module.check_mode = True
+    mock_module.exit_json.side_effect = SystemExit
     mock_module_class.return_value = mock_module
 
     with pytest.raises(SystemExit):
