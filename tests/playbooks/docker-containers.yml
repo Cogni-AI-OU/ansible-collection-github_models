@@ -93,6 +93,7 @@
         state: present
         update_cache: true
       when: container_image is search("ubuntu") or container_image is search("debian")
+      changed_when: false
     - name: Install azure-ai-inference on all containers
       ansible.builtin.pip:
         name: azure-ai-inference

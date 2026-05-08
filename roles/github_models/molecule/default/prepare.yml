@@ -15,7 +15,9 @@
           zypper --non-interactive install python3 python3-pip python3-packaging
         else
           echo "No supported package manager found" >&2
+          exit 1
         fi
+      changed_when: false
     - name: Install azure-ai-inference
       ansible.builtin.pip:
         name: azure-ai-inference
@@ -36,6 +38,7 @@
         nix-env --option sandbox false \
           -iA nixpkgs.python3 nixpkgs.python3Packages.pip
         /root/.nix-profile/bin/pip install --break-system-packages packaging
+      changed_when: false
     - name: Install azure-ai-inference on NixOS
       ansible.builtin.pip:
         name: azure-ai-inference
