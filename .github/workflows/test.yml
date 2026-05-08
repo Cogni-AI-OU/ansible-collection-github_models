@@ -40,6 +40,9 @@ jobs:
       - name: Install Ansible Galaxy local requirements
         run: ansible-galaxy collection install .
         working-directory: ${{ github.repository }}
+      - name: Run unit tests
+        run: pytest tests/unit
+        working_directory: ${{ github.repository }}
       - name: Check Ansible syntax
         run: >-
           ansible-playbook --syntax-check

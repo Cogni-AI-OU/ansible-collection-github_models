@@ -22,6 +22,9 @@ Read and merge these when operating inside corresponding sub-directories (order 
 # Run Molecule tests
 molecule test
 
+# Run unit tests
+pytest tests/unit
+
 # Syntax check
 molecule syntax
 ```

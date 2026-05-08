@@ -6,4 +6,6 @@ docker>=7.1
 molecule
 molecule-docker
 pipenv
+pytest
+pytest-mock
 requests==2.31.0
