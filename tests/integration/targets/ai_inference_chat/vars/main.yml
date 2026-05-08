@@ -1,2 +1,2 @@
 ---
-ai_model: xai/grok-3-mini
+ai_model: microsoft/phi-4-mini-reasoning

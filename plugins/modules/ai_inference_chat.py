@@ -19,7 +19,7 @@ options:
     model:
         description: The model to use for completion.
         type: str
-        default: "xai/grok-3-mini"
+        default: "microsoft/phi-4-mini-reasoning"
     prompt:
         description: A single user prompt.
         type: str
@@ -56,7 +56,7 @@ EXAMPLES = r"""
 - name: One-shot prompt
   ai_inference_chat:
     prompt: "Hello, how are you?"
-    model: "xai/grok-3-mini"
+    model: "microsoft/phi-4-mini-reasoning"
 
 - name: Multi-turn conversation
   ai_inference_chat:
@@ -94,7 +94,7 @@ def main():
         argument_spec=dict(
             endpoint=dict(type="str", default="https://models.github.ai/inference"),
             token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN"])),
-            model=dict(type="str", default="xai/grok-3-mini"),
+            model=dict(type="str", default="microsoft/phi-4-mini-reasoning"),
             prompt=dict(type="str", required=False),
             system_prompt=dict(type="str", required=False),
             messages=dict(
