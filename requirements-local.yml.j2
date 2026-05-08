@@ -4,9 +4,7 @@
 # ansible-galaxy install -r requirements-local.yml
 # Note: Keep roles and keys sorted alphabetically.
 ---
-roles:
-  # Use a static or shell-expanded path; Jinja2 is not supported here
-  - name: cogni-ai.github_models
-    scm: git
-    src: "file://{{ pwd }}"
-    version: HEAD
+collections:
+  - name: cogni_ai.github_models
+    source: "{{ pwd }}"
+    type: dir
