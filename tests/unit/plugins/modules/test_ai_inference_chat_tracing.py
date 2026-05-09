@@ -20,6 +20,7 @@ def test_ai_inference_chat_with_tracing(mock_setup_tracing, mock_create_client, 
         "system_prompt": None,
         "messages": None,
         "max_tokens": None,
+        "temperature": None,
         "top_p": None,
         "tracing": True,
     }
