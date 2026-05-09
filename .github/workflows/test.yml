@@ -19,6 +19,10 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+      ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
+      ANSIBLE_DISPLAY_OK_HOSTS: 'false'
     steps:
       - uses: actions/checkout@v6
         with:
@@ -32,13 +36,13 @@ jobs:
             ${{ github.repository }}/Pipfile*
           python-version: '3.12'
       - name: Install Python's requirements
-        run: pip install -r .devcontainer/requirements.txt
+        run: pip install -q -r .devcontainer/requirements.txt
         working-directory: ${{ github.repository }}
       - name: Install Ansible Galaxy requirements
-        run: ansible-galaxy collection install -r requirements.yml
+        run: ansible-galaxy collection install -r requirements.yml -p collections
         working-directory: ${{ github.repository }}
       - name: Install Ansible Galaxy local requirements
-        run: ansible-galaxy collection install .
+        run: ansible-galaxy collection install . -p collections
         working-directory: ${{ github.repository }}
       - name: Check Ansible syntax
         run: >-
