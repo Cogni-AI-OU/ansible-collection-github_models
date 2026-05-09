@@ -23,6 +23,7 @@
         name: azure-ai-inference
         state: present
         break_system_packages: true
+        extra_args: -q
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
@@ -44,4 +45,5 @@
         name: azure-ai-inference
         state: present
         break_system_packages: true
+        extra_args: -q
       changed_when: false

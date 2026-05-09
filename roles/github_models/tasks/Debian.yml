@@ -6,9 +6,7 @@
       ansible.builtin.apt:
         autoremove: true
         purge: true
-      no_log: true
     - name: Cleans Apt cache
       ansible.builtin.apt:
         autoclean: true
         clean: true
-      no_log: true
