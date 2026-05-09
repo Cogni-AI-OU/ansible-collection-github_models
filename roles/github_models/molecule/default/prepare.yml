@@ -18,9 +18,11 @@
           exit 1
         fi
       changed_when: false
-    - name: Install azure-ai-inference
+    - name: Install azure-ai-inference and azure-ai-agents
       ansible.builtin.pip:
-        name: azure-ai-inference
+        name:
+          - azure-ai-inference
+          - azure-ai-agents
         state: present
         break_system_packages: true
 - name: Prepare NixOS hosts
@@ -39,9 +41,11 @@
           -iA nixpkgs.python3 nixpkgs.python3Packages.pip
         /root/.nix-profile/bin/pip install --break-system-packages packaging
       changed_when: false
-    - name: Install azure-ai-inference on NixOS
+    - name: Install azure-ai-inference and azure-ai-agents on NixOS
       ansible.builtin.pip:
-        name: azure-ai-inference
+        name:
+          - azure-ai-inference
+          - azure-ai-agents
         state: present
         break_system_packages: true
       changed_when: false
