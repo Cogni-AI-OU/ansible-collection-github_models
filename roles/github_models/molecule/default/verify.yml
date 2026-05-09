@@ -43,6 +43,7 @@
         prompt: Hello, this is an automated test. Please respond with 'OK'.
         token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
       register: github_models_result_call
+      run_once: true
     - name: Verify call response (if token was provided)
       ansible.builtin.assert:
         that:
