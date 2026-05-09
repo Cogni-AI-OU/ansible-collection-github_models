@@ -20,7 +20,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     env:
-      ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+      ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/${{ github.repository }}/collections:${{ github.workspace }}/${{ github.repository }}
       ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
       ANSIBLE_DISPLAY_OK_HOSTS: 'false'
     steps:
@@ -45,6 +45,8 @@ jobs:
         run: ansible-galaxy collection install . -p collections
         working-directory: ${{ github.repository }}
       - name: Check Ansible syntax
+        env:
+          ANSIBLE_STDOUT_CALLBACK: community.general.unixy
         run: >-
           ansible-playbook --syntax-check
           -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
@@ -55,12 +57,14 @@ jobs:
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
         env:
+          ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook with verify tag
         env:
+          ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/tags/verify.yml

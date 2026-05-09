@@ -40,10 +40,17 @@ jobs:
             ${{ github.repository }}/.devcontainer/requirements.txt
             ${{ github.repository }}/Pipfile*
           python-version: '3.12'
+      - name: Install Python's requirements
+        run: pip install -q -r .devcontainer/requirements.txt
+        working-directory: ${{ github.repository }}
+      - name: Install Ansible Galaxy requirements
+        run: ansible-galaxy collection install -r requirements.yml -p collections
+        working-directory: ${{ github.repository }}
       - uses: gofrolist/molecule-action@v2
         env:
           ANSIBLE_FORCE_COLOR: '1'
           ANSIBLE_STDOUT_CALLBACK: ${{ runner.debug == '1' && 'debug' || 'community.general.unixy' }}
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/${{ github.repository }}/collections:${{ github.workspace }}/${{ github.repository }}
           ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
           ANSIBLE_DISPLAY_OK_HOSTS: 'false'
           ANSIBLE_CALLBACK_RESULT_FORMAT: yaml
