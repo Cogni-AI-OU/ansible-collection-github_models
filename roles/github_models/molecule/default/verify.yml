@@ -2,6 +2,7 @@
 - name: Verify
   hosts: all
   gather_facts: false
+  serial: 1
   tasks:
     - name: Test ai_inference_chat in check mode with complex messages
       ai_inference_chat:

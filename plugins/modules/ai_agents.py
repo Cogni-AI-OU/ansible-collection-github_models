@@ -95,7 +95,7 @@ def main():
             token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN"])),
             agent_id=dict(type="str", required=False),
             thread_id=dict(type="str", required=False),
-            model=dict(type="str", required=False),
+            model=dict(type="str", required=False, default="phi-4-mini-reasoning"),
             name=dict(type="str", required=False),
             instructions=dict(type="str", required=False),
             prompt=dict(type="str", required=False),
