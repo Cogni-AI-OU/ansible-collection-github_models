@@ -52,6 +52,8 @@ jobs:
           --verbose
       - name: Run Ansible lint
         run: ansible-lint tests/playbooks/docker-containers.yml
+      - name: Run unit tests
+        run: python -m pytest tests/unit
       - name: Run Ansible playbook
         env:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
