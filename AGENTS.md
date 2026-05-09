@@ -23,7 +23,7 @@ Read and merge these when operating inside corresponding sub-directories (order 
 molecule test
 
 # Run unit tests
-pytest tests/unit
+python -m pytest tests/unit
 
 # Syntax check
 molecule syntax

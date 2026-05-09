@@ -8,4 +8,4 @@ molecule-docker
 pipenv
 pytest
 pytest-mock
-requests==2.31.0
+requests>=2.32.5

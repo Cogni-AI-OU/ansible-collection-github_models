@@ -8,11 +8,11 @@ docker = ">=7.1"
 pipenv = "*"
 molecule = "*"
 molecule-docker = "*"
-requests = "==2.31.0"
+requests = ">=2.32.5"
 
 [dev-packages]
 pytest = "*"
 pytest-mock = "*"
 
 [requires]
-python_version = "3.10"
+python_version = "3.12"

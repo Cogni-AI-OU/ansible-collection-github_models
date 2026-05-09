@@ -50,7 +50,7 @@ jobs:
         run: ansible-lint tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
       - name: Run unit tests
-        run: pytest tests/unit
+        run: python -m pytest tests/unit
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
         env:

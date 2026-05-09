@@ -3,8 +3,14 @@
   hosts: all
   gather_facts: false
   tasks:
+    - name: Ensure unit test dependencies are installed
+      ansible.builtin.command: "{{ ansible_playbook_python }} -m pip install -r {{ playbook_dir }}/../requirements.txt"
+      delegate_to: localhost
+      run_once: true
+      changed_when: false
+
     - name: Run unit tests
-      ansible.builtin.command: pytest tests/unit
+      ansible.builtin.command: "{{ ansible_playbook_python }} -m pytest tests/unit"
       delegate_to: localhost
       run_once: true
       changed_when: false
