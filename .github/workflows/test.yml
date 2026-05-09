@@ -19,61 +19,60 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
+      ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
+      ANSIBLE_DISPLAY_OK_HOSTS: 'false'
     steps:
       - uses: actions/checkout@v6
-        with:
-          path: ${{ github.repository }}
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           cache: pip
           cache-dependency-path: |
-            ${{ github.repository }}/.devcontainer/requirements.txt
-            ${{ github.repository }}/Pipfile*
+            .devcontainer/requirements.txt
+            Pipfile*
           python-version: '3.12'
       - name: Install Python's requirements
         run: pip install -q -r .devcontainer/requirements.txt
-        working-directory: ${{ github.repository }}
       - name: Install Ansible Galaxy requirements
-        run: ansible-galaxy collection install -r requirements.yml
-        working-directory: ${{ github.repository }}
+        run: ansible-galaxy collection install --force -r requirements.yml -p collections
       - name: Install Ansible Galaxy local requirements
-        run: ansible-galaxy collection install .
-        working-directory: ${{ github.repository }}
+        run: ansible-galaxy collection install --force . -p collections
+      - name: List installed collections
+        run: ansible-galaxy collection list -p collections
       - name: Check Ansible syntax
         env:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
           DEBIAN_FRONTEND: noninteractive
         run: >-
           ansible-playbook --syntax-check
           -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
           --verbose
-        working-directory: ${{ github.repository }}
       - name: Run Ansible lint
         run: ansible-lint tests/playbooks/docker-containers.yml
-        working-directory: ${{ github.repository }}
       - name: Run unit tests
         run: python -m pytest tests/unit
-        working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
         env:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
           DEBIAN_FRONTEND: noninteractive
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
-        working-directory: ${{ github.repository }}
       - name: Run Ansible playbook with verify tag
         env:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
           DEBIAN_FRONTEND: noninteractive
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/tags/verify.yml
-        working-directory: ${{ github.repository }}
 
       # Debug with tmate on failure when debug logging is enabled.
       - if: ${{ failure() && runner.debug == '1' }}

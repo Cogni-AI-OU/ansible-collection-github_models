@@ -27,13 +27,13 @@ issues: https://github.com/Cogni-AI-OU/ansible-collection-github_models/issues
 # and '.git' are always filtered. Mutually exclusive with 'manifest'
 build_ignore: []
 
+dependencies:
+  community.docker: ">=3.10.2"
+  community.general: ">=8.6.0"
+
 # A dict controlling use of manifest directives used in building the collection artifact. The key 'directives' is a
 # list of MANIFEST.in style
 # L(directives,https://packaging.python.org/en/latest/guides/using-manifest-in/#manifest-in-commands). The key
 # 'omit_default_directives' is a boolean that controls whether the default directives are used. Mutually exclusive
 # with 'build_ignore'
 # manifest: null
-
-dependencies:
-  community.docker: ">=3.10.2"
-  community.general: ">=8.6.0"

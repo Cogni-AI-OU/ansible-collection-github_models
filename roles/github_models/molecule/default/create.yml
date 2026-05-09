@@ -29,6 +29,7 @@
       loop_control:
         label: '{{ item.name }}'
       when: item.dockerfile is defined
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Ensure test containers are running
       community.docker.docker_container:
         name: '{{ item.name }}'
