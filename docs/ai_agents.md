@@ -29,3 +29,8 @@ Interface for AI Agents using Azure AI Agents SDK.
 - `azure-ai-agents` Python package.
 - `azure-core` Python package.
 - `azure-identity` Python package (if using specific credentials).
+
+## See Also
+
+- [Azure SDK for Python](https://github.com/Azure/azure-sdk-for-python)
+- [Azure AI Agents client library for Python](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-agents)

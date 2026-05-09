@@ -114,13 +114,6 @@ def main():
         supports_check_mode=True,
     )
 
-    token = module.params["token"]
-    if not token:
-        module.fail_json(msg="token is required or set GITHUB_TOKEN")
-
-    if not module.params["agent_id"] and not module.params["model"]:
-        module.fail_json(msg="model is required if agent_id is not provided")
-
     if module.check_mode:
         module.exit_json(
             changed=False,
@@ -129,6 +122,13 @@ def main():
             thread_id=module.params["thread_id"] or "check_mode_thread_id",
             message="Check mode message",
         )
+
+    token = module.params["token"]
+    if not token:
+        module.fail_json(msg="token is required or set GITHUB_TOKEN")
+
+    if not module.params["agent_id"] and not module.params["model"]:
+        module.fail_json(msg="model is required if agent_id is not provided")
 
     try:
         from azure.ai.agents import AgentsClient

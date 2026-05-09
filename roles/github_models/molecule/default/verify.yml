@@ -39,7 +39,7 @@
     - name: Test ai_agents in check mode
       ai_agents:
         prompt: Hello
-        check_mode: true
+      check_mode: true
       register: ai_agents_result_check
     - name: Verify ai_agents check mode response
       ansible.builtin.assert:
