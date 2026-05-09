@@ -11,5 +11,7 @@ molecule
 molecule-docker
 pipenv
 pre-commit
+pytest
+pytest-mock
 requests==2.32.5
 uv
