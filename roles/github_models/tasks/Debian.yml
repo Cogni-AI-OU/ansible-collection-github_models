@@ -6,7 +6,9 @@
       ansible.builtin.apt:
         autoremove: true
         purge: true
+        dpkg_options: 'force-confdef,force-confold'
     - name: Cleans Apt cache
       ansible.builtin.apt:
         autoclean: true
         clean: true
+        dpkg_options: 'force-confdef,force-confold'

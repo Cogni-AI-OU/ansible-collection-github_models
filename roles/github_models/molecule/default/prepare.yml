@@ -2,22 +2,10 @@
 - name: Prepare hosts
   hosts: all:!nixos*
   gather_facts: false
+  no_log: "{{ ansible_verbosity | default(0) < 1 }}"
   tasks:
     - name: Install Python for Ansible
-      ansible.builtin.raw: |
-        if command -v apk; then
-          apk update -q && apk add -q --no-cache python3 py3-pip py3-packaging
-        elif command -v apt-get; then
-          apt-get update -qq && apt-get install -yqq python3 python3-pip python3-packaging
-        elif command -v dnf; then
-          dnf install -yq python3 python3-pip python3-packaging
-        elif command -v zypper; then
-          zypper -q --non-interactive install python3 python3-pip python3-packaging
-        else
-          echo "No supported package manager found" >&2
-          exit 1
-        fi
-      changed_when: false
+      ansible.builtin.import_tasks: ../resources/playbooks/install_python.yml
     - name: Install azure-ai-inference and azure-ai-agents
       ansible.builtin.pip:
         name:
@@ -29,6 +17,7 @@
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
+  no_log: "{{ ansible_verbosity | default(0) < 1 }}"
   tasks:
     - name: Install Python for Ansible on NixOS
       ansible.builtin.raw: |

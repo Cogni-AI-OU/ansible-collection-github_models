@@ -221,6 +221,7 @@ cython_debug/
 
 # Ansible
 .ansible/
+collections/
 requirements-local.yml
 
 # Temporary binary files

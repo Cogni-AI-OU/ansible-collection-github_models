@@ -1,6 +1,7 @@
 ---
 # Notes:
 # - Keep the order of the hooks in lexicographical order.
+exclude: ^collections/
 default_language_version:
   python: python3
 repos:

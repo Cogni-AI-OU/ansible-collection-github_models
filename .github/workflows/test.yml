@@ -49,6 +49,7 @@ jobs:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+          DEBIAN_FRONTEND: noninteractive
         run: >-
           ansible-playbook --syntax-check
           -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
@@ -62,6 +63,7 @@ jobs:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+          DEBIAN_FRONTEND: noninteractive
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
@@ -70,6 +72,7 @@ jobs:
           ANSIBLE_STDOUT_CALLBACK: community.general.unixy
           ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
           ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+          DEBIAN_FRONTEND: noninteractive
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/tags/verify.yml

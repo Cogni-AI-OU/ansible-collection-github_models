@@ -58,6 +58,7 @@ jobs:
           ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
           ANSIBLE_DISPLAY_OK_HOSTS: 'false'
           ANSIBLE_CALLBACK_RESULT_FORMAT: yaml
+          DEBIAN_FRONTEND: noninteractive
           MOLECULE_REPORT: molecule-${{ matrix.scenario }}-report.html
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
