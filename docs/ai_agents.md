@@ -20,8 +20,8 @@ Interface for AI Agents using Azure AI Agents SDK.
 | thread_id | The ID of an existing thread. If not provided, a new thread will be created. | No | |
 | name | The name of the agent to create. | No | |
 | instructions | The instructions for the agent to follow. | No | |
-| prompt | A single user prompt. | One of prompt/messages | |
-| messages | A list of messages to add to the thread. | One of prompt/messages | |
+| prompt | A single user prompt. | Exactly one of prompt or messages is required. | |
+| messages | A list of messages to add to the thread. | Exactly one of prompt or messages is required. | |
 
 ## Requirements
 
