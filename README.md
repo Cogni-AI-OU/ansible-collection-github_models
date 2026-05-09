@@ -8,6 +8,7 @@ This collection provides modules and roles for interacting with GitHub AI Infere
 
 ## Modules
 
+- `ai_agents`: Stateful and stateless interface for GitHub AI Agents.
 - `ai_inference_chat`: Stateless interface for GitHub AI Inference Chat Completions.
 
 ## Roles
