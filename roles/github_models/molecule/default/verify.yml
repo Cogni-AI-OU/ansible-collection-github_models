@@ -44,6 +44,9 @@
         token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
       register: github_models_result_call
       run_once: true
+      until: github_models_result_call is not failed
+      retries: 3
+      delay: 10
     - name: Verify call response (if token was provided)
       ansible.builtin.assert:
         that:
