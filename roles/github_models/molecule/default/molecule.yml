@@ -40,7 +40,7 @@ provisioner:
       # Use the condensed unixy callback.
       remote_tmp: /tmp/.ansible-tmp-$${USER}
       result_format: yaml
-      stdout_callback: unixy
+      stdout_callback: community.general.unixy
       verbosity: 0
   env:
     ANSIBLE_FORCE_COLOR: '1'

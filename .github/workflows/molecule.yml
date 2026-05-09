@@ -40,12 +40,14 @@ jobs:
             ${{ github.repository }}/.devcontainer/requirements.txt
             ${{ github.repository }}/Pipfile*
           python-version: '3.12'
+      - name: Install Ansible Galaxy requirements
+        run: ansible-galaxy collection install -r ${{ github.repository }}/requirements.yml
       - uses: gofrolist/molecule-action@v2
         env:
           ANSIBLE_DISPLAY_OK_HOSTS: 'no'
           ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'no'
           ANSIBLE_FORCE_COLOR: '1'
-          ANSIBLE_STDOUT_CALLBACK: ${{ runner.debug == '1' && 'debug' || 'unixy' }}
+          ANSIBLE_STDOUT_CALLBACK: ${{ runner.debug == '1' && 'debug' || 'community.general.unixy' }}
           ANSIBLE_CALLBACK_RESULT_FORMAT: yaml
           MOLECULE_REPORT: molecule-${{ matrix.scenario }}-report.html
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
