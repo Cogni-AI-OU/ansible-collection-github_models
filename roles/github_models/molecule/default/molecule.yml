@@ -7,7 +7,7 @@ dependency:
   options:
     ignore-certs: false
     ignore-errors: false
-    requirements-file: ../../../../requirements.yml
+    requirements-file: /github/workspace/requirements.yml
 driver:
   name: docker
 lint: |

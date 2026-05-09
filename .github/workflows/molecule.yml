@@ -30,18 +30,16 @@ jobs:
           - default
     steps:
       - uses: actions/checkout@v6
-        with:
-          path: ${{ github.repository }}
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           cache: pip
           cache-dependency-path: |
-            ${{ github.repository }}/.devcontainer/requirements.txt
-            ${{ github.repository }}/Pipfile*
+            .devcontainer/requirements.txt
+            Pipfile*
           python-version: '3.12'
       - name: Install Ansible Galaxy requirements
-        run: ansible-galaxy collection install -r ${{ github.repository }}/requirements.yml
+        run: ansible-galaxy collection install -r requirements.yml -p collections
       - uses: gofrolist/molecule-action@v2
         env:
           ANSIBLE_DISPLAY_OK_HOSTS: 'no'
@@ -56,16 +54,16 @@ jobs:
             --scenario-name ${{ matrix.scenario }}
           molecule_command: test
           molecule_options: ${{ runner.debug == '1' && '--verbose' || '' }}
-          molecule_working_dir: ${{ github.repository }}/roles/github_models
+          molecule_working_dir: roles/github_models
       - if: always()
         name: Ensure report file permissions are correct
         run: sudo chmod 644 molecule-${{ matrix.scenario }}-report.html
-        working-directory: ${{ github.repository }}/roles/github_models
+        working-directory: roles/github_models
       - if: always()
         name: Converts test report
         uses: patrick-werner/fhir-html-validation-to-markdown@1.0.0
         with:
-          input_file: ${{ github.repository }}/roles/github_models/molecule-${{ matrix.scenario }}-report.html
+          input_file: roles/github_models/molecule-${{ matrix.scenario }}-report.html
       # Debug with tmate on failure when debug logging is enabled.
       - if: ${{ failure() && runner.debug == '1' }}
         uses: mxschmitt/action-tmate@v3
