@@ -19,6 +19,10 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
+      ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
+      ANSIBLE_DISPLAY_OK_HOSTS: 'false'
     steps:
       - uses: actions/checkout@v6
       - name: Set up Python
@@ -30,12 +34,19 @@ jobs:
             Pipfile*
           python-version: '3.12'
       - name: Install Python's requirements
-        run: pip install -r .devcontainer/requirements.txt
+      - name: Install Python's requirements
+        run: pip install -q -r .devcontainer/requirements.txt
       - name: Install Ansible Galaxy requirements
-        run: ansible-galaxy collection install -r requirements.yml
+        run: ansible-galaxy collection install --force -r requirements.yml -p collections
       - name: Install Ansible Galaxy local requirements
-        run: ansible-galaxy collection install .
+        run: ansible-galaxy collection install --force . -p collections
+      - name: List installed collections
+        run: ansible-galaxy collection list -p collections
       - name: Check Ansible syntax
+        env:
+          ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
+          ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
         run: >-
           ansible-playbook --syntax-check
           -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
@@ -46,6 +57,9 @@ jobs:
         run: python -m pytest tests/unit
       - name: Run Ansible playbook
         env:
+          ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
+          ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANSIBLE_DISPLAY_OK_HOSTS: 'no'
           ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'no'
@@ -53,6 +67,9 @@ jobs:
           ansible-playbook -i tests/inventory/docker-containers.yml tests/playbooks/docker-containers.yml
       - name: Run Ansible playbook with verify tag
         env:
+          ANSIBLE_STDOUT_CALLBACK: community.general.unixy
+          ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
+          ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANSIBLE_DISPLAY_OK_HOSTS: 'no'
           ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'no'

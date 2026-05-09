@@ -49,8 +49,8 @@ RUN ln --symbolic --force \
       "$(realpath --relative-to=/etc /etc/group)" /etc/group
 
 # Continue with other commands...
-RUN nix-channel --update && \
-    nix-env -iA nixpkgs.python3
+RUN nix-channel --update > /dev/null && \
+    nix-env -iA nixpkgs.python3 > /dev/null
 ```
 
 This converts the symlinks from absolute to relative paths:
