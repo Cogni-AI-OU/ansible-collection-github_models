@@ -35,6 +35,7 @@ def test_ai_agents_check_mode(mock_module_class):
     assert kwargs["agent_id"] == "check_mode_agent_id"
     assert kwargs["thread_id"] == "check_mode_thread_id"
 
+
 @patch("plugins.modules.ai_agents.AnsibleModule")
 def test_ai_agents_no_token(mock_module_class):
     mock_module = MagicMock()
@@ -59,6 +60,7 @@ def test_ai_agents_no_token(mock_module_class):
     mock_module.fail_json.assert_called_once()
     args, kwargs = mock_module.fail_json.call_args
     assert "token is required" in kwargs["msg"]
+
 
 @patch("plugins.modules.ai_agents.AnsibleModule")
 def test_ai_agents_no_model_and_no_agent_id(mock_module_class):
