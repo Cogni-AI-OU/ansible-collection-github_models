@@ -49,6 +49,9 @@ jobs:
       - name: Run Ansible lint
         run: ansible-lint tests/playbooks/docker-containers.yml
         working-directory: ${{ github.repository }}
+      - name: Run unit tests
+        run: python -m pytest tests/unit
+        working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
