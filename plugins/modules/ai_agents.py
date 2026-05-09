@@ -25,7 +25,9 @@ options:
         description: The ID of an existing thread. If not provided, a new thread will be created.
         type: str
     model:
-        description: The model to use for the agent. Required if agent_id is not provided.
+        description:
+            - The model to use when creating a new agent.
+            - If agent_id is not provided and model is omitted, the default model is used.
         type: str
         default: "microsoft/phi-4-mini-reasoning"
     name:
