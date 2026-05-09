@@ -21,6 +21,7 @@ def test_ai_inference_chat_with_tracing(mock_setup_tracing, mock_create_client, 
         "messages": None,
         "max_tokens": None,
         "temperature": None,
+        "top_p": None,
         "tracing": True,
     }
     mock_module.check_mode = False

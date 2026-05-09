@@ -4,6 +4,19 @@
   gather_facts: false
   serial: 2
   tasks:
+    - name: Ensure unit test dependencies are installed
+      ansible.builtin.command: "{{ ansible_playbook_python }} -m pip install -r {{ playbook_dir }}/../requirements.txt"
+      delegate_to: localhost
+      run_once: true
+      changed_when: false
+
+    - name: Run unit tests
+      ansible.builtin.command: "{{ ansible_playbook_python }} -m pytest tests/unit"
+      delegate_to: localhost
+      run_once: true
+      changed_when: false
+      args:
+        chdir: "{{ playbook_dir }}/../../../../"
     - name: Test ai_inference_chat in check mode with complex messages
       ai_inference_chat:
         system_prompt: You are a helpful assistant
@@ -31,6 +44,7 @@
         prompt: Hello, this is an automated test. Please respond with 'OK'.
         token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
       register: github_models_result_call
+      run_once: true
     - name: Verify call response (if token was provided)
       ansible.builtin.assert:
         that:

@@ -7,5 +7,6 @@ RUN ln --symbolic --force "$(realpath --relative-to=/etc /etc/passwd)" /etc/pass
     ln --symbolic --force "$(realpath --relative-to=/etc /etc/group)" /etc/group
 
 # Install required packages for Ansible to work on NixOS. Include pip to avoid nix-env inside the running container.
-RUN nix-channel --update && \
-    nix-env -iA nixpkgs.procps nixpkgs.python3 nixpkgs.python3Packages.pip
+RUN nix-channel --update > /dev/null && \
+    nix-env -iA nixpkgs.procps nixpkgs.python3 nixpkgs.python3Packages.pip > /dev/null && \
+    /root/.nix-profile/bin/pip install -q --break-system-packages packaging azure-ai-inference

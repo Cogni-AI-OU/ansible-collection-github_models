@@ -6,13 +6,13 @@
     - name: Install Python for Ansible
       ansible.builtin.raw: |
         if command -v apk; then
-          apk update && apk add --no-cache python3 py3-pip py3-packaging
+          apk update -q && apk add -q --no-cache python3 py3-pip py3-packaging
         elif command -v apt-get; then
-          apt-get update && apt-get install -y python3 python3-pip python3-packaging
+          apt-get update -qq && apt-get install -yqq python3 python3-pip python3-packaging
         elif command -v dnf; then
-          dnf install -y python3 python3-pip python3-packaging
+          dnf install -yq python3 python3-pip python3-packaging
         elif command -v zypper; then
-          zypper --non-interactive install python3 python3-pip python3-packaging
+          zypper -q --non-interactive install python3 python3-pip python3-packaging
         else
           echo "No supported package manager found" >&2
           exit 1
@@ -25,6 +25,7 @@
           - azure-ai-agents
         state: present
         break_system_packages: true
+        extra_args: -q
 - name: Prepare NixOS hosts
   hosts: nixos*
   gather_facts: false
@@ -38,8 +39,8 @@
         printf "sandbox = false\n" > /etc/nix/nix.conf
         export NIX_CONFIG="sandbox = false"
         nix-env --option sandbox false \
-          -iA nixpkgs.python3 nixpkgs.python3Packages.pip
-        /root/.nix-profile/bin/pip install --break-system-packages packaging
+          -iA nixpkgs.python3 nixpkgs.python3Packages.pip > /dev/null
+        /root/.nix-profile/bin/pip install -q --break-system-packages packaging
       changed_when: false
     - name: Install azure-ai-inference and azure-ai-agents on NixOS
       ansible.builtin.pip:
@@ -48,4 +49,5 @@
           - azure-ai-agents
         state: present
         break_system_packages: true
+        extra_args: -q
       changed_when: false
