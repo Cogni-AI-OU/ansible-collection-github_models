@@ -20,6 +20,7 @@ def test_ai_inference_chat_check_mode(mock_module_class):
         "max_tokens": 10000,
         "temperature": 1.0,
         "top_p": 1.0,
+        "tracing": False,
     }
     mock_module.check_mode = True
     mock_module.exit_json.side_effect = SystemExit
