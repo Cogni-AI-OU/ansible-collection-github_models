@@ -1,5 +1,8 @@
 ---
 - name: Configure Docker container
+  collections:
+    - community.docker
+    - community.general
   # Note: Since facts are not gathered, we're checking for ansible_facts['user_id'], connection_user or UID instead.
   become: >-
     {{ (connection_user is defined and connection_user != 'root')

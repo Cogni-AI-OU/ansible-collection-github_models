@@ -41,7 +41,7 @@ provisioner:
       stdout_callback: ansible.builtin.default
       verbosity: 1
   env:
-    ANSIBLE_COLLECTIONS_PATH: ../../../../collections
+    ANSIBLE_COLLECTIONS_PATH: ${ANSIBLE_COLLECTIONS_PATH}:../../../../collections:../../../../
     ANSIBLE_FORCE_COLOR: '1'
     ANSIBLE_LIBRARY: ../../../../plugins/modules
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'

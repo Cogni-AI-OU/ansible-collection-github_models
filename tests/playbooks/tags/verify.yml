@@ -1,5 +1,8 @@
 ---
 - name: Build NixOS test image when needed
+  collections:
+    - community.docker
+    - community.general
   hosts: localhost
   gather_facts: false
   tags: always
@@ -31,6 +34,9 @@
       vars:
         ansible_python_interpreter: '{{ controller_python }}'
 - name: Ensure Docker containers are up-and-running
+  collections:
+    - community.docker
+    - community.general
   gather_facts: false
   hosts: docker_containers
   pre_tasks:
@@ -102,6 +108,9 @@
   vars_files:
     - ../../vars/main.yml
 - name: Import cogni-ai.github_models role (verify tag)
+  collections:
+    - community.docker
+    - community.general
   hosts: docker_containers
   gather_facts: true
   tasks:
