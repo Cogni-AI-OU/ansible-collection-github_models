@@ -29,7 +29,7 @@ options:
             - The model to use when creating a new agent.
             - If agent_id is not provided and model is omitted, the default model is used.
         type: str
-        default: "microsoft/phi-4-mini-reasoning"
+        default: "phi-4-mini-reasoning"
     name:
         description: The name of the agent to create.
         type: str
@@ -60,7 +60,7 @@ author:
 EXAMPLES = r"""
 - name: Create and process a run
   ai_agents:
-    model: "microsoft/phi-4-mini-reasoning"
+    model: "phi-4-mini-reasoning"
     instructions: "You are a helpful assistant."
     prompt: "What is Ansible?"
 

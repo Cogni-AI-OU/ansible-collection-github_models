@@ -9,9 +9,9 @@ from ansible.module_utils.basic import AnsibleModule, env_fallback
 DOCUMENTATION = r"""
 ---
 module: ai_inference_chat_microsoft_phi_4_mini_reasoning
-short_description: stateless interface for microsoft/phi-4-mini-reasoning
+short_description: stateless interface for phi-4-mini-reasoning
 description:
-    - Provides a stateless interface for microsoft/phi-4-mini-reasoning.
+    - Provides a stateless interface for phi-4-mini-reasoning.
     - Supports one-shot prompts and multi-turn conversations.
 extends_documentation_fragment:
     - cogni_ai.github_models.github_models_auth
@@ -134,7 +134,7 @@ def main():
         module.exit_json(
             changed=False,
             msg="Check mode: no request sent",
-            model="microsoft/phi-4-mini-reasoning",
+            model="phi-4-mini-reasoning",
             messages=messages_dict,
         )
 
@@ -161,7 +161,7 @@ def main():
 
         kwargs = {
             "messages": sdk_messages,
-            "model": "microsoft/phi-4-mini-reasoning",
+            "model": "phi-4-mini-reasoning",
         }
 
         if module.params["max_tokens"] is not None:
@@ -181,7 +181,7 @@ def main():
         module.exit_json(
             changed=False,
             message=response.choices[0].message.content,
-            model="microsoft/phi-4-mini-reasoning",
+            model="phi-4-mini-reasoning",
             messages=messages_dict,
         )
     except Exception as exc:
