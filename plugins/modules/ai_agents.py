@@ -113,9 +113,6 @@ def main():
     if not token:
         module.fail_json(msg="token is required or set GITHUB_TOKEN")
 
-    if not module.params["agent_id"] and not module.params["model"]:
-        module.fail_json(msg="model is required if agent_id is not provided")
-
     if module.check_mode:
         module.exit_json(
             changed=False,
