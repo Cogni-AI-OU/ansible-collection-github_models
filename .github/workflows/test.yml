@@ -34,9 +34,6 @@ jobs:
       - name: Install Python's requirements
         run: pip install -r .devcontainer/requirements.txt
         working-directory: ${{ github.repository }}
-      - name: Run unit tests
-        run: pytest tests/unit
-        working-directory: ${{ github.repository }}
       - name: Install Ansible Galaxy requirements
         run: ansible-galaxy collection install -r requirements.yml
         working-directory: ${{ github.repository }}
@@ -51,6 +48,9 @@ jobs:
         working-directory: ${{ github.repository }}
       - name: Run Ansible lint
         run: ansible-lint tests/playbooks/docker-containers.yml
+        working-directory: ${{ github.repository }}
+      - name: Run unit tests
+        run: pytest tests/unit
         working-directory: ${{ github.repository }}
       - name: Run Ansible playbook
         env:
