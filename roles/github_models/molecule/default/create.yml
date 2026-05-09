@@ -14,6 +14,7 @@
         mode: '0644'
       loop: '{{ molecule_yml.platforms }}'
       when: item.dockerfile is defined
+      no_log: true
     - name: Build custom images when dockerfile is provided
       community.docker.docker_image:
         name: '{{ item.image }}'
@@ -38,6 +39,7 @@
         recreate: true
         pull: "{{ false if 'nixos' in item.name else true }}"
       loop: '{{ molecule_yml.platforms }}'
+      no_log: true
     - name: Build instance config entries
       ansible.builtin.set_fact:
         instance_conf_dict: >-
@@ -53,6 +55,7 @@
             }
           ] }}
       loop: '{{ molecule_yml.platforms }}'
+      no_log: true
     - name: Convert instance config list
       ansible.builtin.set_fact:
         instance_conf: '{{ instance_conf_dict }}'

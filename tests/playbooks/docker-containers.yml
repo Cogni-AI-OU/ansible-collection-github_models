@@ -19,6 +19,7 @@
       delegate_to: localhost
       run_once: true  # noqa: run-once[task]
       when: "'github_models-on-nixos-latest' in groups['docker_containers']"
+      no_log: true
       vars:
         item:
           name: github_models-on-nixos-latest
@@ -35,6 +36,7 @@
       delegate_to: localhost
       run_once: true  # noqa: run-once[task]
       when: "'github_models-on-nixos-latest' in groups['docker_containers']"
+      no_log: true
       vars:
         ansible_python_interpreter: '{{ controller_python }}'
     - name: Ensure container is started
@@ -54,6 +56,7 @@
         pull: >-
           {{ not (container_image is search('cogni-ai-github_models-nixos')) }}
       delegate_to: localhost
+      no_log: true
       vars:
         # Use system Python with requests installed for controller-side Docker modules.
         ansible_python_interpreter: '{{ controller_python }}'
@@ -131,4 +134,5 @@
         name: '{{ inventory_hostname }}'
         state: stopped
       delegate_to: localhost
+      no_log: true
       failed_when: false

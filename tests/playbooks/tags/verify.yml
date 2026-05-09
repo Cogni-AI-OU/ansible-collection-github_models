@@ -17,6 +17,7 @@
           image: nixos/nix:latest
         ansible_python_interpreter: '{{ controller_python }}'
       when: "'github_models-on-nixos-latest' in groups['docker_containers']"
+      no_log: true
     - name: Build NixOS image with Python preinstalled
       community.docker.docker_image:
         name: '{{ nixos_built_image }}'
@@ -26,6 +27,7 @@
         source: build
         force_source: true
       when: "'github_models-on-nixos-latest' in groups['docker_containers']"
+      no_log: true
       vars:
         ansible_python_interpreter: '{{ controller_python }}'
 - name: Ensure Docker containers are up-and-running
@@ -55,6 +57,7 @@
           if container_image is search('nixos') else omit }}
         state: started
       delegate_to: localhost
+      no_log: true
       vars:
         # Use system Python with requests installed for controller-side Docker modules.
         ansible_python_interpreter: '{{ controller_python }}'
@@ -109,4 +112,5 @@
         name: '{{ inventory_hostname }}'
         state: stopped
       delegate_to: localhost
+      no_log: true
       failed_when: false
