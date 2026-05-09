@@ -13,7 +13,10 @@
         dest: '{{ molecule_ephemeral_directory }}/{{ item.name }}.Dockerfile'
         mode: '0644'
       loop: '{{ molecule_yml.platforms }}'
+      loop_control:
+        label: '{{ item.name }}'
       when: item.dockerfile is defined
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Build custom images when dockerfile is provided
       community.docker.docker_image:
         name: '{{ item.image }}'
@@ -23,6 +26,8 @@
         source: build
         force_source: true
       loop: '{{ molecule_yml.platforms }}'
+      loop_control:
+        label: '{{ item.name }}'
       when: item.dockerfile is defined
     - name: Ensure test containers are running
       community.docker.docker_container:
@@ -38,6 +43,9 @@
         recreate: true
         pull: "{{ false if 'nixos' in item.name else true }}"
       loop: '{{ molecule_yml.platforms }}'
+      loop_control:
+        label: '{{ item.name }}'
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Build instance config entries
       ansible.builtin.set_fact:
         instance_conf_dict: >-
@@ -53,6 +61,9 @@
             }
           ] }}
       loop: '{{ molecule_yml.platforms }}'
+      loop_control:
+        label: '{{ item.name }}'
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
     - name: Convert instance config list
       ansible.builtin.set_fact:
         instance_conf: '{{ instance_conf_dict }}'

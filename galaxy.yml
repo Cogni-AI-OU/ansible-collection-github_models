@@ -33,3 +33,7 @@ build_ignore: []
 # 'omit_default_directives' is a boolean that controls whether the default directives are used. Mutually exclusive
 # with 'build_ignore'
 # manifest: null
+
+dependencies:
+  community.docker: ">=3.10.2"
+  community.general: ">=8.6.0"
