@@ -1,8 +1,5 @@
 ---
 - name: Create
-  collections:
-    - community.docker
-    - community.general
   hosts: localhost
   connection: local
   gather_facts: false
