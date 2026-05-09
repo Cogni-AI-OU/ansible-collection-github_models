@@ -11,6 +11,21 @@ def create_client(endpoint, token):
     )
 
 
+def setup_tracing():
+    try:
+        from azure.core.settings import settings
+        from azure.ai.inference.tracing import AIInferenceInstrumentor
+
+        settings.tracing_implementation = "opentelemetry"
+        instrumentor = AIInferenceInstrumentor()
+        instrumentor.instrument()
+        return instrumentor
+    except ImportError:
+        # We don't want to fail if tracing dependencies are missing,
+        # but the module should have checked if it's required.
+        return None
+
+
 def build_messages(raw_messages=None, system_prompt=None, prompt=None):
     try:
         from azure.ai.inference.models import AssistantMessage, SystemMessage, UserMessage
