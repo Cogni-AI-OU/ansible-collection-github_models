@@ -36,3 +36,27 @@
           - github_models_result_call.message is defined
           - github_models_result_call.message | length > 0
       when: lookup('env', 'GITHUB_TOKEN') | length > 0
+    - name: Test ai_agents in check mode
+      ai_agents:
+        prompt: Hello
+        check_mode: true
+      register: ai_agents_result_check
+    - name: Verify ai_agents check mode response
+      ansible.builtin.assert:
+        that:
+          - ai_agents_result_check.changed is false
+          - ai_agents_result_check.agent_id is defined
+          - ai_agents_result_check.thread_id is defined
+          - ai_agents_result_check.message is defined
+    - name: Test ai_agents with actual call (expects GITHUB_TOKEN)
+      ai_agents:
+        prompt: Hello, this is an automated test for agents. Please respond with 'OK'.
+        token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+      register: ai_agents_result_call
+      when: lookup('env', 'GITHUB_TOKEN') | length > 0
+    - name: Verify ai_agents call response
+      ansible.builtin.assert:
+        that:
+          - ai_agents_result_call.message is defined
+          - ai_agents_result_call.message | length > 0
+      when: lookup('env', 'GITHUB_TOKEN') | length > 0

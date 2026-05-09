@@ -89,7 +89,7 @@ thread_id:
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            endpoint=dict(type="str", default="https://models.github.ai/inference"),
+            endpoint=dict(type="str", default="https://models.inference.ai.azure.com"),
             token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN"])),
             agent_id=dict(type="str", required=False),
             thread_id=dict(type="str", required=False),

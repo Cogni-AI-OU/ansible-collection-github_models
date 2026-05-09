@@ -46,6 +46,7 @@ provisioner:
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
     ANSIBLE_MODULE_UTILS: ../../../../plugins/module_utils
     GITHUB_TOKEN: ${GITHUB_TOKEN}
+    GH_TOKEN: ${GITHUB_TOKEN}
   inventory:
     group_vars:
       all:

@@ -78,9 +78,11 @@
       ansible.builtin.raw: apt-get update && apt-get install -y python3 python3-pip python3-packaging
       changed_when: false
       when: container_image is search('ubuntu') or container_image is search('debian')
-    - name: Install azure-ai-inference on all containers
+    - name: Install AI SDKs on all containers
       ansible.builtin.pip:
-        name: azure-ai-inference
+        name:
+          - azure-ai-inference
+          - azure-ai-agents
         state: present
         break_system_packages: true
   tags: always

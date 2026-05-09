@@ -47,6 +47,7 @@ jobs:
           ANSIBLE_CALLBACK_RESULT_FORMAT: yaml
           MOLECULE_REPORT: molecule-${{ matrix.scenario }}-report.html
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           molecule_args: >-
             --scenario-name ${{ matrix.scenario }}

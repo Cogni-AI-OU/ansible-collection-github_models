@@ -14,7 +14,7 @@ Interface for AI Agents using Azure AI Agents SDK.
 
 | Parameter | Description | Required | Default |
 | --- | --- | --- | --- |
-| endpoint | The endpoint for the AI Inference service. | No | `https://models.github.ai/inference` |
+| endpoint | The endpoint for the AI Inference service. | No | `https://models.inference.ai.azure.com` |
 | token | The GitHub token for authentication. | No | (Uses GITHUB_TOKEN env var) |
 | model | The model to use for completion. | Required if agent_id is not provided | |
 | agent_id | The ID of an existing agent. If not provided, a new agent will be created. | No | |

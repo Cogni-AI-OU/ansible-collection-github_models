@@ -105,7 +105,7 @@ except ImportError:
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            endpoint=dict(type="str", default="https://models.github.ai/inference"),
+            endpoint=dict(type="str", default="https://models.inference.ai.azure.com"),
             token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN"])),
             model=dict(type="str", default="microsoft/phi-4-mini-reasoning"),
             prompt=dict(type="str", required=False),

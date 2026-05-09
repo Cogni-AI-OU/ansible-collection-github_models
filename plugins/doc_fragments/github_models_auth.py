@@ -5,7 +5,7 @@ options:
     endpoint:
         description: The endpoint for the AI Inference service.
         type: str
-        default: "https://models.github.ai/inference"
+        default: "https://models.inference.ai.azure.com"
     token:
         description:
             - The GitHub token for authentication.

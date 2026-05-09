@@ -1,6 +1,7 @@
 # Python's requirements
 # Usage: pip install -r requirements.txt
 # Note: Keep dependencies sorted alphabetically.
+azure-ai-agents
 azure-ai-inference
 docker>=7.1
 molecule

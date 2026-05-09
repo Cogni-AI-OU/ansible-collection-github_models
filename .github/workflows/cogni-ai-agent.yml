@@ -112,6 +112,7 @@ jobs:
         id: agent
         uses: Cogni-AI-OU/cogni-ai-agent-action@main
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           model: ${{ inputs.model }}
           opencode-api-key: ${{ secrets.OPENCODE_API_KEY }}  # <https://opencode.ai/auth>
           permissions: |-
