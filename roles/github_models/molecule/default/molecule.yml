@@ -41,13 +41,14 @@ provisioner:
       remote_tmp: /tmp/.ansible-tmp-$${USER}
       result_format: yaml
       stdout_callback: community.general.unixy
-      verbosity: 0
+      verbosity: 1
   env:
-    ANSIBLE_COLLECTIONS_PATH: ${ANSIBLE_COLLECTIONS_PATH}:../../../../collections:../../../../
+    ANSIBLE_COLLECTIONS_PATH: ../../../../collections:../../../../
     ANSIBLE_FORCE_COLOR: '1'
     ANSIBLE_LIBRARY: ../../../../plugins/modules
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
     ANSIBLE_MODULE_UTILS: ../../../../plugins/module_utils
+    DEBIAN_FRONTEND: noninteractive
     GITHUB_TOKEN: ${GITHUB_TOKEN}
   inventory:
     group_vars:
