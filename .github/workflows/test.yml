@@ -34,7 +34,6 @@ jobs:
             Pipfile*
           python-version: '3.12'
       - name: Install Python's requirements
-      - name: Install Python's requirements
         run: pip install -q -r .devcontainer/requirements.txt
       - name: Install Ansible Galaxy requirements
         run: ansible-galaxy collection install --force -r requirements.yml -p collections
