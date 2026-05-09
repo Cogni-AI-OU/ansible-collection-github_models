@@ -44,8 +44,10 @@ on:
           - opencode/big-pickle
           - opencode/claude-3-5-haiku
           - opencode/claude-haiku-4-5
+          - opencode/claude-opus-4-1
           - opencode/claude-opus-4-5
           - opencode/claude-opus-4-6
+          - opencode/claude-opus-4-7
           - opencode/claude-sonnet-4
           - opencode/claude-sonnet-4-5
           - opencode/claude-sonnet-4-6
@@ -56,16 +58,32 @@ on:
           - opencode/gpt-5
           - opencode/gpt-5-codex
           - opencode/gpt-5-nano
+          - opencode/gpt-5.1
+          - opencode/gpt-5.1-codex
+          - opencode/gpt-5.1-codex-max
+          - opencode/gpt-5.1-codex-mini
+          - opencode/gpt-5.2
+          - opencode/gpt-5.2-codex
           - opencode/gpt-5.3-codex
           - opencode/gpt-5.3-codex-spark
           - opencode/gpt-5.4
           - opencode/gpt-5.4-mini
           - opencode/gpt-5.4-nano
+          - opencode/gpt-5.4-pro
+          - opencode/gpt-5.5
+          - opencode/gpt-5.5-pro
+          - opencode/hy3-preview-free
+          - opencode/kimi-k2.5
+          - opencode/kimi-k2.6
           - opencode/minimax-m2.5
           - opencode/minimax-m2.5-free
+          - opencode/minimax-m2.7
           - opencode/nemotron-3-super-free
           - opencode/qwen3-coder
+          - opencode/qwen3.5-plus
+          - opencode/qwen3.6-plus
           - opencode/qwen3.6-plus-free
+          - opencode/trinity-large-preview-free
         required: true
         type: choice
       prompt:
@@ -91,6 +109,7 @@ jobs:
       contents: write
       id-token: write
       issues: write
+      models: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
@@ -185,6 +204,7 @@ jobs:
       contents: read
       id-token: write
       issues: write
+      models: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
