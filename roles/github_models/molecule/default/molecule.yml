@@ -34,11 +34,13 @@ platforms:
 provisioner:
   config_options:
     defaults:
+      display_ok_hosts: false
+      display_skipped_hosts: false
       host_key_checking: false
-      # Use the built-in default callback with result_format instead of community.general.yaml
+      # Use the condensed unixy callback.
       remote_tmp: /tmp/.ansible-tmp-$${USER}
       result_format: yaml
-      stdout_callback: ansible.builtin.default
+      stdout_callback: community.general.unixy
       verbosity: 1
   env:
     ANSIBLE_COLLECTIONS_PATH: ../../../../collections:../../../../
