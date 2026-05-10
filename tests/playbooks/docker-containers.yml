@@ -89,9 +89,12 @@
         dpkg_options: 'force-confdef,force-confold'
       when: container_image is search("ubuntu") or container_image is search("debian")
       changed_when: false
-    - name: Install azure-ai-inference on all containers
+      no_log: "{{ ansible_verbosity | default(0) < 1 }}"
+    - name: Install AI SDKs on all containers
       ansible.builtin.pip:
-        name: azure-ai-inference
+        name:
+          - azure-ai-inference
+          - azure-ai-agents
         state: present
         break_system_packages: true
         extra_args: -q

@@ -12,9 +12,9 @@ Stateless interface for GitHub AI Inference Chat Completions.
 
 | Parameter | Description | Required | Default |
 | --- | --- | --- | --- |
-| endpoint | The endpoint for the AI Inference service. | No | `https://models.github.ai/inference` |
+| endpoint | The endpoint for the AI Inference service. | No | `https://models.inference.ai.azure.com` |
 | token | The GitHub token for authentication. | No | (Uses GITHUB_TOKEN env var) |
-| model | The model to use for completion. | No | `microsoft/phi-4-mini-reasoning` |
+| model | The model to use for completion. | No | `phi-4-mini-reasoning` |
 | prompt | A single user prompt. | One of prompt/messages | |
 | system_prompt | A system prompt to set the context. | No | |
 | messages | A list of messages for multi-turn conversations. | One of prompt/messages | |

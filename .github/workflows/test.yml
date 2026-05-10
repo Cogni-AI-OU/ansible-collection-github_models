@@ -19,6 +19,9 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      models: read
     env:
       ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
       ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'

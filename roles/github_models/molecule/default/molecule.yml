@@ -50,6 +50,7 @@ provisioner:
     ANSIBLE_MODULE_UTILS: ../../../../plugins/module_utils
     DEBIAN_FRONTEND: noninteractive
     GITHUB_TOKEN: ${GITHUB_TOKEN}
+    GH_TOKEN: ${GITHUB_TOKEN}
   inventory:
     group_vars:
       all:

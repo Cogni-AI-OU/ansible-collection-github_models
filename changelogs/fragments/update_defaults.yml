@@ -1,0 +1,4 @@
+---
+minor_changes:
+  - Updated default endpoint to https://models.inference.ai.azure.com for all modules.
+  - Updated default model to phi-4-mini-reasoning for all modules.

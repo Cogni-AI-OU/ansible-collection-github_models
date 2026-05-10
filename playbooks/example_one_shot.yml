@@ -6,7 +6,7 @@
     - name: Get a quick response from the AI
       cogni_ai.github_models.ai_inference_chat:
         prompt: Explain Ansible collections in one sentence.
-        model: microsoft/phi-4-mini-reasoning
+        model: phi-4-mini-reasoning
       register: response
     - name: Display response
       ansible.builtin.debug:

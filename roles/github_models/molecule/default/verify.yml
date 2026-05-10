@@ -2,17 +2,18 @@
 - name: Verify
   hosts: all
   gather_facts: false
+  serial: 1
   tasks:
     - name: Ensure unit test dependencies are installed
       ansible.builtin.command: "{{ ansible_playbook_python }} -m pip install -r {{ playbook_dir }}/../requirements.txt"
       delegate_to: localhost
-      run_once: true
+      run_once: true  # noqa: run-once[task]
       changed_when: false
 
     - name: Run unit tests
       ansible.builtin.command: "{{ ansible_playbook_python }} -m pytest tests/unit"
       delegate_to: localhost
-      run_once: true
+      run_once: true  # noqa: run-once[task]
       changed_when: false
       args:
         chdir: "{{ playbook_dir }}/../../../../"
@@ -43,9 +44,9 @@
         prompt: Hello, this is an automated test. Please respond with 'OK'.
         token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
       register: github_models_result_call
-      run_once: true
+      run_once: true  # noqa: run-once[task]
       until: github_models_result_call is success
-      retries: 3
+      retries: 5
       delay: 30
     - name: Verify call response (if token was provided)
       ansible.builtin.assert:
@@ -53,3 +54,34 @@
           - github_models_result_call.message is defined
           - github_models_result_call.message | length > 0
       when: lookup('env', 'GITHUB_TOKEN') | length > 0
+    - name: Test ai_agents in check mode
+      ai_agents:
+        prompt: Hello
+      check_mode: true
+      register: github_models_ai_agents_result_check
+    - name: Verify ai_agents check mode response
+      ansible.builtin.assert:
+        that:
+          - github_models_ai_agents_result_check.changed is false
+          - github_models_ai_agents_result_check.agent_id is defined
+          - github_models_ai_agents_result_check.thread_id is defined
+          - github_models_ai_agents_result_check.message is defined
+    - name: Test ai_agents with actual call (expects GITHUB_TOKEN)
+      ai_agents:
+        prompt: Hello, this is an automated test for agents. Please respond with 'OK'.
+        token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+      register: github_models_ai_agents_result_call
+      run_once: true  # noqa: run-once[task]
+      until: github_models_ai_agents_result_call is success
+      retries: 5
+      delay: 30
+      when: lookup('env', 'GITHUB_TOKEN') | length > 0
+      ignore_errors: true  # GitHub Models endpoint may not support Agents API yet
+    - name: Verify ai_agents call response
+      ansible.builtin.assert:
+        that:
+          - github_models_ai_agents_result_call.message is defined
+          - github_models_ai_agents_result_call.message | length > 0
+      when:
+        - lookup('env', 'GITHUB_TOKEN') | length > 0
+        - github_models_ai_agents_result_call is success

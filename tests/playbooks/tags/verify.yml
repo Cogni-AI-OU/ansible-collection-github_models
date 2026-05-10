@@ -76,9 +76,11 @@
     - name: Install Python for Ansible
       ansible.builtin.import_tasks: ../../../roles/github_models/molecule/resources/playbooks/install_python.yml
       when: not (container_image is search("nixos"))
-    - name: Install azure-ai-inference on all containers
+    - name: Install AI SDKs on all containers
       ansible.builtin.pip:
-        name: azure-ai-inference
+        name:
+          - azure-ai-inference
+          - azure-ai-agents
         state: present
         break_system_packages: true
         extra_args: -q
