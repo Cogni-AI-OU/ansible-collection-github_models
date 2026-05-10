@@ -9,7 +9,7 @@ options:
     token:
         description:
             - The GitHub token for authentication.
-            - If not provided, the C(GITHUB_TOKEN) environment variable will be used.
+            - If not provided, the C(GITHUB_TOKEN) or C(GH_TOKEN) environment variable will be used.
         type: str
         no_log: true
 """

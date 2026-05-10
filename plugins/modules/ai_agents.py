@@ -27,7 +27,7 @@ options:
     model:
         description:
             - The model to use when creating a new agent.
-            - If agent_id is not provided and model is omitted, the default model is used.
+            - If agent_id is not provided, this model is used.
         type: str
         default: "phi-4-mini-reasoning"
     name:
@@ -120,7 +120,7 @@ def main():
     module = AnsibleModule(
         argument_spec=dict(
             endpoint=dict(type="str", default="https://models.inference.ai.azure.com"),
-            token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN"])),
+            token=dict(type="str", no_log=True, required=False, fallback=(env_fallback, ["GITHUB_TOKEN", "GH_TOKEN"])),
             agent_id=dict(type="str", required=False),
             thread_id=dict(type="str", required=False),
             model=dict(type="str", required=False, default="phi-4-mini-reasoning"),
@@ -153,10 +153,7 @@ def main():
 
     token = module.params["token"]
     if not token:
-        module.fail_json(msg="token is required or set GITHUB_TOKEN")
-
-    if not module.params["agent_id"] and not module.params["model"]:
-        module.fail_json(msg="model is required if agent_id is not provided")
+        module.fail_json(msg="token is required or set GITHUB_TOKEN or GH_TOKEN")
 
     try:
         from azure.ai.agents import AgentsClient
@@ -200,31 +197,52 @@ def main():
 
             # 5. Fetch response
             if run.status == "failed":
-                module.fail_json(msg="Run failed: %s" % getattr(run, "last_error", "Unknown error"))
+                error_details = getattr(run, "last_error", "Unknown error")
+                module.fail_json(
+                    msg="Run failed: %s" % error_details,
+                    agent_id=agent_id,
+                    thread_id=thread_id,
+                    run_id=run.id,
+                    run_status=run.status,
+                    error=error_details,
+                )
 
             # Get messages
             messages = client.messages.list(thread_id=thread_id, order="desc")
-
-            # Extract the latest assistant message
-            response_message = ""
-            for msg in messages:
-                role = getattr(msg, "role", "")
-                if str(role).lower() in ["assistant", "agent"]:
-                    if hasattr(msg, "text_messages") and msg.text_messages:
-                        response_message = "\n".join([m.text.value for m in msg.text_messages])
-                    elif hasattr(msg, "content"):
-                        blocks = []
-                        for c in msg.content:
-                            if getattr(c, "type", None) == "text" and hasattr(c, "text"):
-                                blocks.append(c.text.value)
-                        response_message = "\n".join(blocks)
-                    break
-
-            module.exit_json(
-                changed=True, message=response_message, agent_id=agent_id, thread_id=thread_id, run_status=run.status
-            )
     except Exception as exc:
-        module.fail_json(msg=str(exc))
+        # Check if it's an Azure core error with more details
+        error_msg = str(exc)
+        if hasattr(exc, "response") and hasattr(exc.response, "json"):
+            try:
+                details = exc.response.json()
+                if "error" in details:
+                    error_msg = "%s: %s" % (details["error"].get("code", "Error"), details["error"].get("message", error_msg))
+            except Exception:
+                pass
+        module.fail_json(msg=error_msg)
+
+    # Process messages (outside the try/except if we want to separate logic, but here it's fine)
+    try:
+        # Extract the latest assistant message
+        response_message = ""
+        for msg in messages:
+            role = getattr(msg, "role", "")
+            if str(role).lower() in ["assistant", "agent"]:
+                if hasattr(msg, "text_messages") and msg.text_messages:
+                    response_message = "\n".join([m.text.value for m in msg.text_messages])
+                elif hasattr(msg, "content"):
+                    blocks = []
+                    for c in msg.content:
+                        if getattr(c, "type", None) == "text" and hasattr(c, "text"):
+                            blocks.append(c.text.value)
+                    response_message = "\n".join(blocks)
+                break
+
+        module.exit_json(
+            changed=True, message=response_message, agent_id=agent_id, thread_id=thread_id, run_status=run.status
+        )
+    except Exception as exc:
+        module.fail_json(msg="Error processing response: %s" % str(exc))
 
 
 if __name__ == "__main__":
