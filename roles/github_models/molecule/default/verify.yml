@@ -82,4 +82,6 @@
         that:
           - github_models_ai_agents_result_call.message is defined
           - github_models_ai_agents_result_call.message | length > 0
-      when: lookup('env', 'GITHUB_TOKEN') | length > 0
+      when:
+        - lookup('env', 'GITHUB_TOKEN') | length > 0
+        - github_models_ai_agents_result_call is success
