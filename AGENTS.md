@@ -34,3 +34,13 @@ molecule syntax
 - **ansible**: Conventions, idempotency, and linting for Ansible content.
 - **molecule**: Molecule testing workflows for Ansible roles.
 - **git**: Guide for using git with non-interactive, safe operations.
+
+## AI Agents Module (`ai_agents`)
+
+Autonomous agents using this module should be aware of the following:
+
+- **SDK Requirement**: Requires `azure-ai-agents` package.
+- **Authentication**: Uses `StaticTokenCredential` to pass the GitHub token to the Azure SDK. It falls back to `GITHUB_TOKEN` or `GH_TOKEN`.
+- **Endpoint Support**: The default endpoint `https://models.inference.ai.azure.com` currently returns `api_not_supported` for the Agents API. When encountering this, do not attempt workarounds; either use a compatible Azure AI Foundry endpoint or stick to `ai_inference_chat`.
+- **Response Extraction**: The module uses `order="desc"` when listing messages and breaks on the first assistant/agent message to reliably retrieve the latest response.
+- **Validation**: Exactly one of `prompt` or `messages` is required.

@@ -10,6 +10,9 @@ Interface for AI Agents using Azure AI Agents SDK.
   and stateful conversation by providing `thread_id` and `agent_id`.
 - Leverages the `azure-ai-agents` SDK.
 
+> [!IMPORTANT]
+> The default GitHub Models endpoint (`https://models.inference.ai.azure.com`) does not currently support the Agents (Assistants) API. When using this endpoint, the module will return an `api_not_supported` error. This module is intended for use with Azure AI Foundry endpoints where the Agents service is enabled.
+
 ## Options
 
 | Parameter | Description | Required | Default |
