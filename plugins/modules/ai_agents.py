@@ -88,6 +88,22 @@ thread_id:
 """
 
 
+# The import path for collection
+try:
+    from ansible_collections.cogni_ai.github_models.plugins.module_utils.ai_inference_common import (
+        StaticTokenCredential,
+    )
+except ImportError:
+    # Fallback for local testing
+    try:
+        from plugins.module_utils.ai_inference_common import StaticTokenCredential
+    except ImportError:
+        try:
+            from ai_inference_common import StaticTokenCredential
+        except ImportError:
+            StaticTokenCredential = None
+
+
 def main():
     module = AnsibleModule(
         argument_spec=dict(
@@ -132,12 +148,23 @@ def main():
 
     try:
         from azure.ai.agents import AgentsClient
-        from azure.core.credentials import AzureKeyCredential
     except ImportError:
         module.fail_json(msg="The 'azure-ai-agents' package is required for this module.")
 
+    if not StaticTokenCredential:
+        # Define inline fallback if import failed
+        class StaticTokenCredential:
+            def __init__(self, token):
+                self.token = token
+
+            def get_token(self, *scopes, **kwargs):
+                from azure.core.credentials import AccessToken
+                import time
+
+                return AccessToken(self.token, int(time.time()) + 3600)
+
     try:
-        client = AgentsClient(endpoint=module.params["endpoint"], credential=AzureKeyCredential(token))
+        client = AgentsClient(endpoint=module.params["endpoint"], credential=StaticTokenCredential(token))
 
         with client:
             # 1. Setup Agent

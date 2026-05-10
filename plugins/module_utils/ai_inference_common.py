@@ -1,3 +1,25 @@
+from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
+
+
+class StaticTokenCredential:
+    """
+    A static token credential that implements the TokenCredential protocol.
+    Used for GitHub tokens which are Bearer tokens.
+    """
+
+    def __init__(self, token):
+        self.token = token
+
+    def get_token(self, *scopes, **kwargs):
+        from azure.core.credentials import AccessToken
+        import time
+
+        # Return an AccessToken with a fake expiry (1 hour)
+        return AccessToken(self.token, int(time.time()) + 3600)
+
+
 def create_client(endpoint, token):
     try:
         from azure.ai.inference import ChatCompletionsClient
