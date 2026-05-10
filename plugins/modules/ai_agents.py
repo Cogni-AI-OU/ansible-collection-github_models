@@ -103,6 +103,18 @@ except ImportError:
         except ImportError:
             StaticTokenCredential = None
 
+if not StaticTokenCredential:
+    # Define inline fallback if import failed
+    class StaticTokenCredential:
+        def __init__(self, token):
+            self.token = token
+
+        def get_token(self, *scopes, **kwargs):
+            from azure.core.credentials import AccessToken
+            import time
+
+            return AccessToken(self.token, int(time.time()) + 3600)
+
 
 def main():
     module = AnsibleModule(
@@ -150,18 +162,6 @@ def main():
         from azure.ai.agents import AgentsClient
     except ImportError:
         module.fail_json(msg="The 'azure-ai-agents' package is required for this module.")
-
-    if not StaticTokenCredential:
-        # Define inline fallback if import failed
-        class StaticTokenCredential:
-            def __init__(self, token):
-                self.token = token
-
-            def get_token(self, *scopes, **kwargs):
-                from azure.core.credentials import AccessToken
-                import time
-
-                return AccessToken(self.token, int(time.time()) + 3600)
 
     try:
         client = AgentsClient(endpoint=module.params["endpoint"], credential=StaticTokenCredential(token))
